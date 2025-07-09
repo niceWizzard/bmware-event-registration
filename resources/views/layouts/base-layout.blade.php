@@ -19,7 +19,7 @@
     @stack('head')
     @stack('scripts')
 </head>
-<body>
+<body class="bg-surface text-on-surface ">
     {{$slot}}
 </body>
 </html>
