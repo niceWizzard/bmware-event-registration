@@ -1,4 +1,4 @@
-<x-card-layout title="Wow">
+<x-card-layout title="Login">
     <div class="flex flex-col gap-2 w-96 min-h-48 flex-wrap">
         <h2 class="text-2xl text-center font-bold mb-4 text-pretty ">
             Login
