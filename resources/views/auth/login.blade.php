@@ -4,15 +4,18 @@
             Login
         </h2>
         <form
+            x-data="{ loading: false }"
+            @submit.prevent="loading = true; $el.submit()"
             class="flex flex-col justify-center gap-4"
-            action="{{route('login')}}"
+            action="{{ route('login') }}"
             method="POST"
         >
             @csrf
+
             <x-form-input
                 name="email"
                 type="email"
-                class="rounded-none max-w-none "
+                class="rounded-none max-w-none"
                 required
             />
             <x-form-input
@@ -22,7 +25,14 @@
                 class="rounded-none max-w-none"
                 required
             />
-            <button class="bg-primary text-on-primary px-3 py-2" type="submit">Login</button>
+
+            <button
+                class="btn primary"
+                type="submit"
+                :disabled="loading"
+                x-text="loading ? 'Logging in…' : 'Login'"
+            ></button>
         </form>
+
     </div>
 </x-card-layout>
