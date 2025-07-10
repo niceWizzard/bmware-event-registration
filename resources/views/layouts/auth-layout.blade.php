@@ -1,5 +1,6 @@
 <x-header-layout
     :title="$title" :override-title="$overrideTitle"
+    link-to="{{route('home')}}"
 >
     <x-slot:headerActions>
         @auth

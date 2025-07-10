@@ -9,10 +9,13 @@ class HeaderLayout extends BaseLayout
 {
     public string $headerTitle;
 
-    public function __construct(string $headerTitle = "Event Registration", string $title = 'Default Title', bool $overrideTitle = false)
+    public ?string $linkTo;
+
+    public function __construct(?string $linkTo = null, string $headerTitle = 'Event Registration', string $title = 'Default Title', bool $overrideTitle = false)
     {
         parent::__construct($title, $overrideTitle);
         $this->headerTitle = $headerTitle;
+        $this->linkTo = $linkTo;
     }
 
     /**

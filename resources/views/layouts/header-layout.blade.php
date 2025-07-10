@@ -3,7 +3,10 @@
     :title="$title" :override-title="$overrideTitle"
 >
     <div class="flex flex-col min-h-screen">
-        <x-header :header-title="$headerTitle">
+        <x-header
+            :header-title="$headerTitle"
+            :link-to="$linkTo"
+        >
             {{$headerActions}}
         </x-header>
         <main class="flex-1 ">

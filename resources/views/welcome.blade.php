@@ -1,4 +1,4 @@
-<x-header-layout title="">
+<x-header-layout title="" link-to="{{route('home')}}">
     <x-slot:headerActions>
         @auth
             <a href="{{route('admin.dashboard')}}">

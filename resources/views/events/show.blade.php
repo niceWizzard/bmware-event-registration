@@ -1,4 +1,4 @@
-<x-header-layout title="Event">
+<x-header-layout title="Event" link-to="{{route('home')}}">
     <section
         class="container mx-auto my-6 p-6 space-y-6  rounded-radius text-on-surface ">
         {{-- Banner --}}
