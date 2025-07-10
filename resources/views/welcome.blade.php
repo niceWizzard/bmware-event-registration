@@ -1,7 +1,7 @@
 <x-header-layout title="">
     <x-slot:headerActions>
         @auth
-            <a href="/">
+            <a href="{{route('admin.dashboard')}}">
                 Dashboard
             </a>
         @endauth
