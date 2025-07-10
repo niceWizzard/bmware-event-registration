@@ -46,7 +46,7 @@
             </div>
             <div
                 class="bg-surface p-4 rounded-radius border border-outline">
-                <h3 class="font-semibold text-on-surface-strong mb-1">Event Period</h3>
+                <h3 class="font-semibold text-on-surface-strong mb-1">Registration Period</h3>
                 <p>
                     <span data-time="{{ $event->registration_start_date }}">{{ $event->registration_start_date }}</span>
                     to <span data-time="{{ $event->registration_end_date}}">{{ $event->registration_end_date }}</span>
