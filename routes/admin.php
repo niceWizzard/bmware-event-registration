@@ -1,9 +1,15 @@
 <?php
 
+use App\Models\Event;
+
 Route::prefix('/admin')
     ->name('admin')
     ->group(function () {
         Route::get('/', static function () {
-            return view('admin.dashboard');
+            $events = Event::all();
+
+            return view('admin.dashboard', [
+                'events' => $events,
+            ]);
         })->name('.dashboard');
     });
