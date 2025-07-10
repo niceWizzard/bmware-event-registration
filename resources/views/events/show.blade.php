@@ -57,7 +57,7 @@
         {{-- Form --}}
         <div class="flex flex-col gap-2 w-full">
             <h3 class="text-lg text-center " id="register">Register now!</h3>
-            <x-registration-form/>
+            <x-registration-form action="{{route('events.register', $event->slug)}}"/>
         </div>
     </section>
 

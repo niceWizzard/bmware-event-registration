@@ -1,10 +1,14 @@
+@props([
+    'action' => ''
+])
 <form
     class="w-full mx-auto max-w-sm flex flex-col gap-2 "
     x-data="{
     isLoading: false
 }"
-
-    @submit.prevent="isLoading = true; console.log($el)"
+    action="{{$action}}"
+    @submit.prevent="isLoading = true; $el.submit()"
+    method="POST"
 >
     @csrf
     <div class="flex gap-2">

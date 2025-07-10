@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventRegistrationController;
 
 Route::prefix('events')
     ->name('events')
@@ -11,5 +12,7 @@ Route::prefix('events')
             Route::post('/create', 'store')->name('.store');
         });
         Route::get('/{slug}', 'show')->name('.show');
+        Route::post('/{slug}', [EventRegistrationController::class, 'store'])->name('.register');
+        Route::get('/{slug}/{registrationId}', [EventRegistrationController::class, 'showQr'])->name('.show-qr');
         Route::get('/', 'index')->name('.index');
     });
