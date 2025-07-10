@@ -1,0 +1,77 @@
+<x-header-layout title="Event">
+    <section
+        class="container mx-auto my-6 p-6 space-y-6  rounded-radius text-on-surface ">
+        {{-- Banner --}}
+        @if ($event->banner)
+            <div class="overflow-hidden rounded-radius shadow">
+                <img src="{{ $event->banner_url }}" alt="{{ $event->title }}" class="w-full h-64 object-cover"/>
+            </div>
+        @endif
+
+        {{-- Title + Meta --}}
+        <div>
+            <h1 class="text-2xl font-semibold text-on-surface-strong">{{ $event->title }}</h1>
+            <p class="text-sm text-[var(--color-on-surface)]" data-time="{{ $event->created_at?->toIso8601String() }}">
+                Created: {{ $event->created_at?->format('D, h:i A') }}
+            </p>
+        </div>
+
+        {{-- Description --}}
+        @if ($event->description)
+            <div>
+                <h2 class="text-lg font-medium text-on-surface-strong">Description</h2>
+                <p class="text-[var(--color-on-surface)] whitespace-pre-line">{{ $event->description }}</p>
+            </div>
+        @endif
+
+        {{-- Event Details --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div
+                class="bg-surface p-4 rounded-radius border border-outline">
+                <h3 class="font-semibold text-on-surface-strong mb-1">Venue</h3>
+                <p>{{ $event->venue }}</p>
+            </div>
+            <div
+                class="bg-surface p-4 rounded-radius border border-outline">
+                <h3 class="font-semibold text-on-surface-strong mb-1">Partner</h3>
+                <p>{{ $event->partner }}</p>
+            </div>
+            <div
+                class="bg-surface p-4 rounded-radius border border-outline">
+                <h3 class="font-semibold text-on-surface-strong mb-1">Event Period</h3>
+                <p>
+                    <span data-time="{{ $event->start_date }}">{{ $event->start_date }}</span>
+                    to <span data-time="{{ $event->end_date }}">{{ $event->end_date }}</span>
+                </p>
+            </div>
+            <div
+                class="bg-surface p-4 rounded-radius border border-outline">
+                <h3 class="font-semibold text-on-surface-strong mb-1">Event Period</h3>
+                <p>
+                    <span data-time="{{ $event->registration_start_date }}">{{ $event->registration_start_date }}</span>
+                    to <span data-time="{{ $event->registration_end_date}}">{{ $event->registration_end_date }}</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    {{-- Localize all date/times using browser locale --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-time]').forEach(el => {
+                const raw = el.dataset.time;
+                if (!raw) return;
+                const date = new Date(raw);
+                el.textContent = new Intl.DateTimeFormat(navigator.language, {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                }).format(date);
+            });
+        });
+    </script>
+</x-header-layout>
