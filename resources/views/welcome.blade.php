@@ -1,7 +1,4 @@
-<x-card-layout>
-    <form method="post" action="{{route('logout')}}">
-        @csrf
-        <button type="submit">Logout</button>
-    </form>
+<x-auth-layout>
+
     {{auth()->user()}}
-</x-card-layout>
+</x-auth-layout>
