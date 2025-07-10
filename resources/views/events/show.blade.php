@@ -7,7 +7,7 @@
                 <img src="{{ $event->banner_url }}" alt="{{ $event->title }}" class="w-full h-64 object-cover"/>
             </div>
         @endif
-
+        <a href="#register" class="underline">Register now</a>
         {{-- Title + Meta --}}
         <div>
             <h1 class="text-2xl font-semibold text-on-surface-strong">{{ $event->title }}</h1>
