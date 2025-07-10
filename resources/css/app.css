@@ -14,19 +14,30 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn {
-    @apply p-3 text-base font-medium leading-tight rounded-radius cursor-pointer transition-colors;
-    @apply disabled:opacity-80;
-
+    @apply p-3 text-base font-medium leading-tight rounded-radius not-disabled:cursor-pointer transition-colors focus:outline-outline-strong;
+    @apply disabled:opacity-50 enabled:hover:opacity-90;
 }
 
 .btn.primary {
-    @apply bg-primary text-on-primary hover:bg-primary/90 focus:outline-outline-strong;
+    @apply bg-primary text-on-primary disabled:text-on-primary/50;
 }
-
 
 .btn.secondary {
-    @apply bg-secondary text-on-secondary hover:bg-secondary/90 focus:outline-outline-strong;
+    @apply bg-secondary text-on-secondary disabled:text-on-secondary/50;
 }
+
+.btn.success {
+    @apply bg-success text-on-success disabled:text-on-success/50;
+}
+
+.btn.warning {
+    @apply bg-warning text-on-warning disabled:text-on-warning/50;
+}
+
+.btn.danger {
+    @apply bg-danger text-on-danger disabled:text-on-danger/50;
+}
+
 
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
