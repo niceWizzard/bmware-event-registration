@@ -19,11 +19,11 @@ class Event extends Model
         'description',
         'venue',
         'partner',
-        'start',
-        'end',
+        'start_date',
+        'end_date',
         'banner',
-        'registration_start',
-        'registration_end',
+        'registration_start_date',
+        'registration_end_date',
     ];
 
     protected $hidden = [
