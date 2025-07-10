@@ -11,24 +11,29 @@
         <x-form-input
             name="first_name"
             label="First Name"
+            required
         />
         <x-form-input
             name="last_name"
             label="Last Name"
+            required
         />
     </div>
     <x-form-input
         name="email"
         label="Email"
         type="email"
+        required
     />
     <x-form-input
         name="mobile_number"
         label="Mobile Number"
+        required
     />
     <x-form-input
         name="gender"
         placeholder="Male"
+        required
     />
     <x-form-input
         name="company"
