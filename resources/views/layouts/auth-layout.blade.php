@@ -1,11 +1,14 @@
-<x-base-layout
+<x-header-layout
     :title="$title" :override-title="$overrideTitle"
 >
-    <div class="flex flex-col min-h-screen">
-        <x-header/>
-        <main class="flex-1 ">
-            {{$slot}}
-        </main>
-        <x-footer/>
-    </div>
-</x-base-layout>
+    <slot:headerActions>
+        @auth
+            <form method="post" action="{{route('logout')}}">
+                @csrf
+                <button type="submit" class="btn text-danger hover:text-on-danger hover:bg-danger ">Logout
+                </button>
+            </form>
+        @endauth
+    </slot:headerActions>
+    {{$slot}}
+</x-header-layout>
