@@ -1,4 +1,5 @@
 <x-auth-layout title="Dashboard">
+    <a href="{{route('events.create')}}">Create</a>
     Admin
     <ul class="flex flex-col  gap-2 p-8">
         @foreach($events as $event)
