@@ -7,6 +7,7 @@
 
 :root {
     font-family: 'Inter', sans-serif;
+    @apply scroll-smooth;
 }
 
 h1, h2, h3, h4, h5, h6 {
