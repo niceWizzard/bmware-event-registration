@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Event;
+use App\Models\EventRegistration;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -23,7 +24,6 @@ class RoutesTest extends TestCase
     {
         $this->get(route('login'))->assertOk();
     }
-
 
     // ------------ ADMIN
     public function test_admin_dashboard_page(): void
@@ -46,5 +46,17 @@ class RoutesTest extends TestCase
         $event = Event::factory()->create();
         $this->get(route('events.show', $event->slug))
             ->assertOk();
+    }
+
+    public function test_events_qr_page(): void
+    {
+        $event = Event::factory()->create();
+        $eventRegistration = EventRegistration::factory()->create([
+            'event_id' => $event->id,
+        ]);
+
+        $this->get(
+            route('events.show-qr', [$event->slug, $eventRegistration->id])
+        )->assertOk();
     }
 }
