@@ -46,7 +46,7 @@
 
     <button
         type="submit"
-        class="btn primary"
+        class="btn btn-primary"
         :disabled="isLoading"
         x-text="isLoading ? 'Submitting...' : 'Submit'"
     >

@@ -7,8 +7,8 @@
 
 @endphp
 
-<!doctype html>
-<html lang="en">
+    <!doctype html>
+<html lang="en" data-theme="corporate">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -20,6 +20,6 @@
     @stack('scripts')
 </head>
 <body class="bg-surface text-on-surface ">
-    {{$slot}}
+{{$slot}}
 </body>
 </html>

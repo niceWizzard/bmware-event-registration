@@ -48,7 +48,7 @@
             <x-form-input
                 name="description"
             />
-            <button class="btn primary">
+            <button class="btn btn-primary">
                 Create
             </button>
         </form>

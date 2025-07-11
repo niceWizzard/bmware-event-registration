@@ -84,11 +84,11 @@
                     action="{{route('events.clear', $event->slug)}}"
                 >
                     @csrf
-                    <button type="submit" class="btn primary">
+                    <button type="submit" class="btn btn-primary">
                         Register new
                     </button>
                     <a href="{{route('events.show-qr', [$event->slug, $registrationCookie])}}"
-                       class="btn secondary">
+                       class="btn btn-secondary">
                         View QR Code
                     </a>
                 </form>
