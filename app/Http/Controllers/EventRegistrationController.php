@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\EventRegistration;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Redirect;
 
 class EventRegistrationController extends Controller
@@ -25,6 +26,10 @@ class EventRegistrationController extends Controller
             ...$data,
             'event_id' => $event->id,
         ]);
+        Cookie::queue(
+            Cookie::make('event_' . $event->id, $registration->token, 60 * 24 * 7)
+        );
+
         return Redirect::route('events.show-qr', [$event->slug, $registration->token]);
     }
 
@@ -34,5 +39,27 @@ class EventRegistrationController extends Controller
         $registration = EventRegistration::whereToken($token)->firstOrFail()->attributesToArray();
 
         return view('events.qr', compact('event', 'registration'));
+    }
+
+    public function clear(string $slug)
+    {
+        $event = Event::whereSlug($slug)->firstOrFail();
+        $registrationCookie = Cookie::get('event_' . $event->id);
+        if (is_null($registrationCookie)) {
+            return back()->with([
+                'message' => 'Registration cookie not found.',
+            ]);
+        }
+        Cookie::queue(
+            Cookie::forget('event_' . $event->id)
+        );
+
+        $previousUrl = url()->previous();
+
+        if (!str_contains($previousUrl, '#register')) {
+            $previousUrl .= '#register';
+        }
+
+        return redirect()->to($previousUrl);
     }
 }

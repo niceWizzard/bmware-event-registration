@@ -13,6 +13,7 @@ Route::prefix('events')
         });
         Route::get('/{slug}', 'show')->name('.show');
         Route::post('/{slug}', [EventRegistrationController::class, 'store'])->name('.register');
+        Route::post('/{slug}/clear', [EventRegistrationController::class, 'clear'])->name('.clear');
         Route::get('/{slug}/{token}', [EventRegistrationController::class, 'showQr'])->name('.show-qr');
         Route::get('/', 'index')->name('.index');
     });

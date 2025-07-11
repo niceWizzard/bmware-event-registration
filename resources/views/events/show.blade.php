@@ -1,3 +1,7 @@
+@php
+    use \Illuminate\Support\Facades\Cookie;
+    $registrationCookie = Cookie::get('event_'.$event->id);
+@endphp
 <x-header-layout title="Event" link-to="{{route('home')}}">
     <section
         class="container mx-auto my-6 p-6 space-y-6  rounded-radius text-on-surface ">
@@ -56,8 +60,34 @@
 
         {{-- Form --}}
         <div class="flex flex-col gap-2 w-full">
-            <h3 class="text-lg text-center " id="register">Register now!</h3>
-            <x-registration-form action="{{route('events.register', $event->slug)}}"/>
+            @if(is_null($registrationCookie))
+                <h3 class="text-lg text-center " id="register">Register now!</h3>
+                <x-registration-form action="{{route('events.register', $event->slug)}}"/>
+            @else
+                <h3 class="text-lg text-center font-bold" id="register">
+                    You already registered in this event
+                </h3>
+                @if(session('message'))
+                    <p class="text-danger">
+                        {{session('message')}}
+                    </p>
+                @endif
+                <form
+                    class="flex justify-center gap-2"
+                    method="POST"
+                    action="{{route('events.clear', $event->slug)}}"
+                >
+                    @csrf
+                    <button type="submit" class="btn primary">
+                        Register new
+                    </button>
+                    <a href="{{route('events.show-qr', [$event->slug, $registrationCookie])}}"
+                       class="btn secondary">
+                        View QR Code
+                    </a>
+                </form>
+
+            @endif
         </div>
     </section>
 
