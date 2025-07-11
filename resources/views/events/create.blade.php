@@ -7,7 +7,7 @@
             x-data="{
                 isLoading: false
             }"
-            class="pt-4 flex flex-col gap-2"
+            class="pt-4 flex flex-col gap-2 w-full"
             method="post"
             @submit.prevent="isLoading = true; setDescriptionValue(); $el.submit() "
             action="{{route('events.store')}}"
@@ -20,30 +20,38 @@
                 name="short_name"
                 tip="This will be shown in QR codes and the likes."
             />
-            <x-form-input
-                name="partner"
-            />
-            <x-form-input
-                name="venue"
-            />
-            <div class="flex gap-2">
+            <div class="flex gap-2 w-full max-sm:flex-col">
+                <x-form-input
+                    name="partner"
+                    container-class="w-full"
+                />
+                <x-form-input
+                    name="venue"
+                    container-class="w-full"
+                />
+            </div>
+            <div class="flex gap-2 w-full max-sm:flex-col">
                 <x-form-input
                     name="start_date"
                     class="datetime-picker"
+                    container-class="w-full"
                 />
                 <x-form-input
                     name="end_date"
                     class="datetime-picker"
+                    container-class="w-full"
                 />
             </div>
-            <div class="flex gap-2">
+            <div class="flex gap-2 max-sm:flex-col">
                 <x-form-input
                     name="registration_start_date"
                     class="datetime-picker"
+                    container-class="w-full"
                 />
                 <x-form-input
                     name="registration_end_date"
                     class="datetime-picker"
+                    container-class="w-full"
                 />
             </div>
             <input type="hidden" name="description"/>
