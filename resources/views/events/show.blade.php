@@ -3,6 +3,12 @@
     $registrationCookie = Cookie::get('event_'.$event->id);
 @endphp
 <x-header-layout title="Event" link-to="{{route('home')}}">
+    @auth
+        <x-slot:headerActions>
+            <a class="hover:underline" href="{{route('home')}}">Edit</a>
+            <a class="hover:underline" href="{{route('home')}}">Manage</a>
+        </x-slot:headerActions>
+    @endauth
     <section
         class="container mx-auto my-6 p-6 space-y-6  rounded-radius text-on-surface ">
         {{-- Banner --}}
