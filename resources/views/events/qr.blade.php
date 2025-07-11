@@ -22,6 +22,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             const canvas = document.getElementById('canvas');
             const data = JSON.stringify(@json($registration, JSON_THROW_ON_ERROR));
+            const downloadLink = document.getElementById('downloadLink');
 
             window.QRCode.toCanvas(canvas, data, function (error) {
                 if (error) {
@@ -31,14 +32,36 @@
 
                 console.log('QR code generated!');
 
-                // Generate PNG data from canvas
-                const dataUrl = canvas.toDataURL("image/png");
+                const ctx = canvas.getContext('2d');
+                const text = @json($event->short_name);
 
-                // Make the download link visible and set its href
-                const downloadLink = document.getElementById('downloadLink');
-                downloadLink.href = dataUrl;
-                downloadLink.style.display = 'inline-block'; // show the link
+                // Font settings
+                ctx.font = "bold 20px sans-serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+
+                const textWidth = ctx.measureText(text).width;
+                const textHeight = 24; // approximate height
+                const padding = 10;
+
+                const rectX = (canvas.width - textWidth) / 2 - padding;
+                const rectY = (canvas.height - textHeight) / 2 - padding / 2;
+                const rectWidth = textWidth + padding * 2;
+                const rectHeight = textHeight + padding;
+
+                // Draw background rectangle
+                ctx.fillStyle = "white";
+                ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
+
+                // Draw text
+                ctx.fillStyle = "black";
+                ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+
+                // Set download link
+                downloadLink.href = canvas.toDataURL("image/png");
+                downloadLink.style.display = 'inline-block';
             });
         });
     </script>
+
 </x-card-layout>
