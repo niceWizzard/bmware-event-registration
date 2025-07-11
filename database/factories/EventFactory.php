@@ -18,7 +18,7 @@ class EventFactory extends Factory
      */
     public function definition(): array
     {
-        $title = $this->faker->realText('256');
+        $title = $this->faker->realText('72');
         $date = Carbon::parse($this->faker->dateTime());
         $shortName = $this->faker->word();
         return [
