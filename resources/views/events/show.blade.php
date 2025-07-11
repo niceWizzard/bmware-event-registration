@@ -37,30 +37,40 @@
         {{-- Event Details --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div
-                class="bg-surface p-4 rounded-radius border border-outline">
-                <h3 class="font-semibold text-on-surface-strong mb-1">Venue</h3>
-                <p>{{ $event->venue }}</p>
+                class="card card-border">
+                <div class="card-body">
+                    <h3 class="card-title">Venue</h3>
+                    <p>{{ $event->venue }}</p>
+                </div>
             </div>
             <div
-                class="bg-surface p-4 rounded-radius border border-outline">
-                <h3 class="font-semibold text-on-surface-strong mb-1">Partner</h3>
-                <p>{{ $event->partner }}</p>
+                class="card card-border">
+                <div class="card-body">
+                    <h3 class="card-title">Partner</h3>
+                    <p>{{ $event->partner }}</p>
+                </div>
             </div>
             <div
-                class="bg-surface p-4 rounded-radius border border-outline">
-                <h3 class="font-semibold text-on-surface-strong mb-1">Event Period</h3>
-                <p>
-                    <span data-time="{{ $event->start_date }}">{{ $event->start_date }}</span>
-                    to <span data-time="{{ $event->end_date }}">{{ $event->end_date }}</span>
-                </p>
+                class="card card-border">
+                <div class="card-body">
+                    <h3 class="card-title">Event Period</h3>
+                    <p>
+                        <span data-time="{{ $event->start_date }}">{{ $event->start_date }}</span>
+                        to <span data-time="{{ $event->end_date }}">{{ $event->end_date }}</span>
+                    </p>
+                </div>
             </div>
             <div
-                class="bg-surface p-4 rounded-radius border border-outline">
-                <h3 class="font-semibold text-on-surface-strong mb-1">Registration Period</h3>
-                <p>
-                    <span data-time="{{ $event->registration_start_date }}">{{ $event->registration_start_date }}</span>
-                    to <span data-time="{{ $event->registration_end_date}}">{{ $event->registration_end_date }}</span>
-                </p>
+                class="card card-border">
+                <div class="card-body">
+                    <h3 class="card-title">Registration Period</h3>
+                    <p>
+                        <span
+                            data-time="{{ $event->registration_start_date }}">{{ $event->registration_start_date }}</span>
+                        to <span
+                            data-time="{{ $event->registration_end_date}}">{{ $event->registration_end_date }}</span>
+                    </p>
+                </div>
             </div>
         </div>
 
