@@ -22,7 +22,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const canvas = document.getElementById('canvas');
-            const data = JSON.stringify(@json($registration, JSON_THROW_ON_ERROR));
+            const data = JSON.stringify(@json($qrCodeData, JSON_THROW_ON_ERROR));
             const downloadLink = document.getElementById('downloadLink');
 
             window.QRCode.toCanvas(canvas, data, function (error) {

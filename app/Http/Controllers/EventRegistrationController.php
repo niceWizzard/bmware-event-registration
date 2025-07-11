@@ -37,8 +37,11 @@ class EventRegistrationController extends Controller
     {
         $event = Event::whereSlug($slug)->firstOrFail();
         $registration = EventRegistration::whereToken($token)->firstOrFail()->attributesToArray();
-
-        return view('events.qr', compact('event', 'registration'));
+        $qrCodeData = [
+            'slug' => $event->slug,
+            ...$registration,
+        ];
+        return view('events.qr', compact('event', 'qrCodeData'));
     }
 
     public function clear(string $slug)
