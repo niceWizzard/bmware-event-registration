@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class EventRegistration extends Model
 {
@@ -25,6 +26,19 @@ class EventRegistration extends Model
     protected $appends = [
         'slug',
     ];
+
+    protected $hidden = [
+        'token',
+    ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(static function ($model) {
+            $model->token = $model->token ?? Str::uuid();
+        });
+    }
 
     public function event(): BelongsTo
     {

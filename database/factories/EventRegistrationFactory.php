@@ -23,6 +23,7 @@ class EventRegistrationFactory extends Factory
             'mobile_number' => $this->faker->phoneNumber(),
             'email' => $this->faker->email(),
             'company' => $this->faker->company(),
+            'token' => $this->faker->uuid(),
         ];
     }
 }
