@@ -1,7 +1,7 @@
 @props(['headerTitle' => 'Header', 'linkTo' => null])
 
 <header class="w-full shadow-sm  h-16">
-    <div class="px-4 py-2 w-full h-full flex justify-between gap-2  items-center">
+    <div class="container mx-auto px-4 py-2 w-full h-full flex justify-between gap-2  items-center">
         <h1 class="text-xl ">
             @if($linkTo)
                 <a href="{{$linkTo}}">{{$headerTitle}}</a>
