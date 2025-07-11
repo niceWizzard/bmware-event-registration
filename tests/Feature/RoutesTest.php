@@ -56,7 +56,7 @@ class RoutesTest extends TestCase
         ]);
 
         $this->get(
-            route('events.show-qr', [$event->slug, $eventRegistration->id])
+            route('events.show-qr', [$event->slug, $eventRegistration->token])
         )->assertOk();
     }
 }

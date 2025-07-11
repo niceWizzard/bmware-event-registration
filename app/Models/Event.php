@@ -50,7 +50,7 @@ class Event extends Model
         );
     }
 
-    public function registrants(): HasMany
+    public function registrations(): HasMany
     {
         return $this->hasMany(EventRegistration::class, 'event_id');
     }

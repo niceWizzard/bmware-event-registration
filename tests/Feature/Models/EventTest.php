@@ -28,17 +28,17 @@ class EventTest extends TestCase
         );
     }
 
-    public function test_event_has_registrants(): void
+    public function test_event_has_registrations(): void
     {
         $event = Event::factory()->create();
 
-        $this->assertIsIterable($event->registrants);
+        $this->assertIsIterable($event->registrations);
 
         EventRegistration::factory(10)->create([
             'event_id' => $event->id,
         ]);
         $event->refresh();
-        $this->assertCount(10, $event->registrants);
+        $this->assertCount(10, $event->registrations);
     }
 
 
