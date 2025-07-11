@@ -30,7 +30,8 @@
         @if ($event->description)
             <div>
                 <h2 class="text-lg font-medium text-on-surface-strong">Description</h2>
-                <p class="text-[var(--color-on-surface)] whitespace-pre-line">{{ $event->description }}</p>
+                <br>
+                {!! $event->description !!}
             </div>
         @endif
 
