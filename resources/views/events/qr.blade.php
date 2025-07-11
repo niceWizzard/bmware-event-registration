@@ -1,5 +1,5 @@
-<x-card-layout title="Your QR Code">
-    <h2 class="card-title">Registered!</h2>
+<x-card-layout title="Your QR Code" card-title="Registered" class="items-center"
+>
     <canvas id="canvas" class="w-full"></canvas>
     <p class="text-base text-on-surface text-center">
         <span class="font-bold">Keep this QR Code.</span>

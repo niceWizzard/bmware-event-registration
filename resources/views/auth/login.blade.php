@@ -1,7 +1,4 @@
-<x-card-layout title="Login">
-    <h2 class="card-title justify-center">
-        Login
-    </h2>
+<x-card-layout title="Login" card-title="Login" card-title-class="justify-center">
     <form
         x-data="{ loading: false }"
         @submit.prevent="loading = true; $el.submit()"
