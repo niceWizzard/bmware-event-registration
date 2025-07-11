@@ -25,13 +25,13 @@ class EventRegistrationController extends Controller
             ...$data,
             'event_id' => $event->id,
         ]);
-        return Redirect::route('events.show-qr', [$event->slug, $registration->id]);
+        return Redirect::route('events.show-qr', [$event->slug, $registration->token]);
     }
 
-    public function showQr(string $slug, string $registrationId)
+    public function showQr(string $slug, string $token)
     {
         $event = Event::whereSlug($slug)->firstOrFail();
-        $registration = EventRegistration::findOrFail($registrationId)->attributesToArray();
+        $registration = EventRegistration::whereToken($token)->firstOrFail()->attributesToArray();
 
         return view('events.qr', compact('event', 'registration'));
     }
