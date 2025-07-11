@@ -28,7 +28,7 @@
 
         {{-- Description --}}
         @if ($event->description)
-            <div>
+            <div class="description">
                 <h2 class="text-lg font-medium text-on-surface-strong">Description</h2>
                 <br>
                 {!! $event->description !!}

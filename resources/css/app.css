@@ -14,15 +14,14 @@
     themes: light --default, dark --prefersdark, corporate;
 }
 
-/* app.css */
-ol {
-    @apply list-decimal list-inside ml-4;
-}
-
-ul {
+.description > li[data-list='bullet'] {
     @apply list-disc list-inside ml-4;
 }
 
-li {
+.description > li[data-list='ordered'] {
+    @apply list-decimal list-inside ml-4;
+}
+
+.description > li {
     @apply my-1;
 }
