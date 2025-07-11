@@ -34,11 +34,11 @@
         label="Mobile Number"
         required
     />
-    <x-form-input
-        name="gender"
-        placeholder="Male"
-        required
-    />
+    <x-form-select name="gender">
+        <option disabled selected>Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+    </x-form-select>
     <x-form-input
         name="company"
         tip="Enter a company if you have one"

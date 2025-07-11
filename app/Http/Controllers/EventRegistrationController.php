@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\EventRegistration;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class EventRegistrationController extends Controller
 {
-    public function store(Request $request, string $slug)
+    public function store(Request $request, string $slug): RedirectResponse
     {
         $event = Event::whereSlug($slug)->firstOrFail();
         $data = $request->validate([
@@ -18,10 +21,10 @@ class EventRegistrationController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'mobile_number' => ['required', 'string', 'max:255'],
-            'gender' => ['required', 'string', 'max:255'],
+            'gender' => ['required', Rule::in(['Male', 'Female'])],
             'company' => ['string', 'max:255'],
         ]);
-
+        $data['gender'] = Str::lower($data['gender']);
         $registration = EventRegistration::create([
             ...$data,
             'event_id' => $event->id,
@@ -41,6 +44,7 @@ class EventRegistrationController extends Controller
             'slug' => $event->slug,
             ...$registration,
         ];
+
         return view('events.qr', compact('event', 'qrCodeData'));
     }
 
