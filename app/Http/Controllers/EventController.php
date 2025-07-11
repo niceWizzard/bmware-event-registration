@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class EventController extends Controller
 {
@@ -28,7 +29,7 @@ class EventController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'string', 'max:255'],
-            'short_name' => ['required', 'string', 'max:72'],
+            'short_name' => ['required', 'string', 'max:72', Rule::unique('events', 'short_name')],
             'partner' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
             'venue' => ['required', 'string'],
