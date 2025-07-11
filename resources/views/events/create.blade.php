@@ -16,6 +16,10 @@
                 name="title"
             />
             <x-form-input
+                name="short_name"
+                tip="This will be shown in QR codes and the likes."
+            />
+            <x-form-input
                 name="partner"
             />
             <x-form-input

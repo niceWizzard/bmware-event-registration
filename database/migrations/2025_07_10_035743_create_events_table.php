@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title', 256);
             $table->string('slug', 256)->unique();
+            $table->string('short_name', 72)->unique();
             $table->string('banner')->nullable();
             $table->longText('description')->nullable();
             $table->string('venue', 256);

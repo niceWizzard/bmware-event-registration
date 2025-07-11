@@ -20,10 +20,11 @@ class EventFactory extends Factory
     {
         $title = $this->faker->realText('256');
         $date = Carbon::parse($this->faker->dateTime());
-
+        $shortName = $this->faker->word();
         return [
             'title' => $title,
             'slug' => Event::generateSlug($title),
+            'short_name' => $shortName,
             'description' => $this->faker->realText('1000'),
             'venue' => $this->faker->address(),
             'partner' => $this->faker->name(),

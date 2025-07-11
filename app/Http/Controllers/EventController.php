@@ -28,6 +28,7 @@ class EventController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'string', 'max:255'],
+            'short_name' => ['required', 'string', 'max:72'],
             'partner' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
             'venue' => ['required', 'string'],
