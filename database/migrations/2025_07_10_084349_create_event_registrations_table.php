@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('event_registrations', static function (Blueprint $table) {
             $table->id();
-            $table->uuid('token');
+            $table->uuid('token')->unique();
             $table->string('first_name', 256);
             $table->string('last_name', 256);
             $table->string('email', 256);
