@@ -17,7 +17,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn {
     @apply p-3 text-base font-medium leading-tight rounded-radius not-disabled:cursor-pointer transition-colors focus:outline-outline-strong;
-    @apply disabled:opacity-50 enabled:hover:opacity-90;
+    @apply disabled:opacity-50 not-disabled:hover:opacity-90;
 }
 
 .btn.primary {
