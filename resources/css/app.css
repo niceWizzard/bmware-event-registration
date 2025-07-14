@@ -14,14 +14,42 @@
     themes: light --default, dark --prefersdark, corporate;
 }
 
-.description > li[data-list='bullet'] {
+.description > h1, h2, h3, h4, h5, h6 {
+    @apply font-bold leading-tight;
+}
+
+.description > h1 {
+    @apply text-4xl;
+}
+
+.description > h2 {
+    @apply text-3xl;
+}
+
+.description > h3 {
+    @apply text-2xl;
+}
+
+.description > h4 {
+    @apply text-xl;
+}
+
+.description > h5 {
+    @apply text-lg;
+}
+
+.description > p > a {
+    @apply underline text-info;
+}
+
+.description > ol > li[data-list='bullet'] {
     @apply list-disc list-inside ml-4;
 }
 
-.description > li[data-list='ordered'] {
+.description > ol > li[data-list='ordered'] {
     @apply list-decimal list-inside ml-4;
 }
 
-.description > li {
+.description > ol > li {
     @apply my-1;
 }
