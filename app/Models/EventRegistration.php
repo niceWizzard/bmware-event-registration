@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,9 +22,6 @@ class EventRegistration extends Model
         'gender',
     ];
 
-    protected $appends = [
-        'short_name',
-    ];
 
     protected $hidden = [
         'token',
@@ -45,10 +41,5 @@ class EventRegistration extends Model
         return $this->belongsTo(Event::class, 'event_id');
     }
 
-    public function shortName(): Attribute
-    {
-        return Attribute::get(function (): string {
-            return $this->event->short_name;
-        });
-    }
+
 }
