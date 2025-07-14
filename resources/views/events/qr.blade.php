@@ -25,7 +25,25 @@
             const data = JSON.stringify(@json($qrCodeData, JSON_THROW_ON_ERROR));
             const downloadLink = document.getElementById('downloadLink');
 
-            window.QRCode.toCanvas(canvas, data, function (error) {
+            const originalSize = 256;
+            const textHeight = 24;
+            const padding = 10;
+            const sidePadding = 20; // Extra horizontal padding
+            const dpr = window.devicePixelRatio || 1;
+
+            const totalWidth = originalSize + sidePadding * 2;
+            const totalHeight = originalSize + textHeight + padding;
+
+            canvas.width = totalWidth * dpr;
+            canvas.height = totalHeight * dpr;
+            canvas.style.width = `${totalWidth}px`;
+            canvas.style.height = `${totalHeight}px`;
+
+            const qrCanvas = document.createElement("canvas");
+            qrCanvas.width = originalSize;
+            qrCanvas.height = originalSize;
+
+            window.QRCode.toCanvas(qrCanvas, data, function (error) {
                 if (error) {
                     console.error(error);
                     return;
@@ -34,29 +52,22 @@
                 console.log('QR code generated!');
 
                 const ctx = canvas.getContext('2d');
+                ctx.scale(dpr, dpr); // avoid blur
                 const text = @json($event->short_name);
 
-                // Font settings
+                // Fill background white
+                ctx.fillStyle = "white";
+                ctx.fillRect(0, 0, totalWidth, totalHeight);
+
+                // Draw QR code centered with side padding
+                ctx.drawImage(qrCanvas, sidePadding, 0);
+
+                // Draw text below the QR code
+                ctx.fillStyle = "black";
                 ctx.font = "bold 20px sans-serif";
                 ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-
-                const textWidth = ctx.measureText(text).width;
-                const textHeight = 24; // approximate height
-                const padding = 10;
-
-                const rectX = (canvas.width - textWidth) / 2 - padding;
-                const rectY = (canvas.height - textHeight) / 2 - padding / 2;
-                const rectWidth = textWidth + padding * 2;
-                const rectHeight = textHeight + padding;
-
-                // Draw background rectangle
-                ctx.fillStyle = "white";
-                ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
-
-                // Draw text
-                ctx.fillStyle = "black";
-                ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+                ctx.textBaseline = "top";
+                ctx.fillText(text, totalWidth / 2, originalSize + padding / 2);
 
                 // Set download link
                 downloadLink.href = canvas.toDataURL("image/png");
