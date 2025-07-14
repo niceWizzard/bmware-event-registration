@@ -10,6 +10,8 @@ Route::prefix('events')
         Route::middleware('auth')->group(function () {
             Route::get('/create', 'create')->name('.create');
             Route::post('/create', 'store')->name('.store');
+            Route::get('/{slug}/edit', 'edit')->name('.edit');
+            Route::patch('/{slug}/edit', 'update')->name('.update');
         });
         Route::get('/{slug}', 'show')->name('.show');
         Route::post('/{slug}', [EventRegistrationController::class, 'store'])->name('.register');

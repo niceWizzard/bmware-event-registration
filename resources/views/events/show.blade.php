@@ -5,7 +5,7 @@
 <x-header-layout title="Event" link-to="{{route('home')}}">
     @auth
         <x-slot:headerActions>
-            <a class="hover:underline" href="{{route('home')}}">Edit</a>
+            <a class="hover:underline" href="{{route('events.edit', $event->slug)}}">Edit</a>
             <a class="hover:underline" href="{{route('home')}}">Manage</a>
         </x-slot:headerActions>
     @endauth

@@ -2,73 +2,95 @@
     'action' => '',
     'method' => 'post',
     'class' => '',
+    'event' => null,
+    'specialMethod'=> null,
 ])
 
 <script>
     function setDescriptionValue() {
         const input = document.querySelector('input[name="description"]');
         const html = window.quill.root.innerHTML;
-
         input.value = html === '<p><br></p>' ? '' : html;
     }
 </script>
 
 <form
-    x-data="{
-                isLoading: false,
-            }"
-    class="{{twMerge(['pt-4 flex flex-col gap-2 w-full', $class])}}"
+    x-data="{ isLoading: false }"
+    class="{{ twMerge(['pt-4 flex flex-col gap-2 w-full', $class]) }}"
     @submit.prevent="isLoading = true; setDescriptionValue(); $el.submit()"
-    action="{{$action}}"
-    method="{{$method}}"
+    action="{{ $action }}"
+    method="{{ $method }}"
 >
     @csrf
+    @if($specialMethod)
+        @method($specialMethod)
+    @endif
+    @if(strtolower($method) !== 'post')
+        @method($method)
+    @endif
+
     <x-form-input
         name="title"
+        value="{{ old('title', $event?->title) }}"
     />
+
     <x-form-input
         name="short_name"
         tip="This will be shown in QR codes and the likes."
+        value="{{ old('short_name', $event?->short_name) }}"
     />
+
     <div class="flex gap-2 w-full max-sm:flex-col">
         <x-form-input
             name="partner"
             container-class="w-full"
+            value="{{ old('partner', $event?->partner) }}"
         />
         <x-form-input
             name="venue"
             container-class="w-full"
+            value="{{ old('venue', $event?->venue) }}"
         />
     </div>
+
     <div class="flex gap-2 w-full max-sm:flex-col">
         <x-form-input
             name="start_date"
             class="datetime-picker"
             container-class="w-full"
+            value="{{ old('start_date', $event?->start_date) }}"
         />
         <x-form-input
             name="end_date"
             class="datetime-picker"
             container-class="w-full"
+            value="{{ old('end_date', $event?->end_date) }}"
         />
     </div>
+
     <div class="flex gap-2 max-sm:flex-col">
         <x-form-input
             name="registration_start_date"
             class="datetime-picker"
             container-class="w-full"
+            value="{{ old('registration_start_date', $event?->registration_start_date) }}"
         />
         <x-form-input
             name="registration_end_date"
             class="datetime-picker"
             container-class="w-full"
+            value="{{ old('registration_end_date', $event?->registration_end_date) }}"
         />
     </div>
+
     <input type="hidden" name="description"/>
     <x-quill-editor>
-        {!! old('description') !!}
+        {!! old('description', $event?->description) !!}
     </x-quill-editor>
+
     <button class="btn btn-primary">
-        Create
+        {{ $event ? 'Update' : 'Create' }}
     </button>
+
+    {{ $slot }}
 </form>
