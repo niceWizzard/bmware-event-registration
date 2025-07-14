@@ -38,22 +38,31 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div
                 class="card card-border">
-                <div class="card-body">
-                    <h3 class="card-title">Venue</h3>
+                <div class="card-body ">
+                    <div class="flex gap-2 mb-2">
+                        <x-akar-location class="size-8"/>
+                        <h3 class="card-title">Venue</h3>
+                    </div>
                     <p>{{ $event->venue }}</p>
                 </div>
             </div>
             <div
                 class="card card-border">
                 <div class="card-body">
-                    <h3 class="card-title">Partner</h3>
+                    <div class="flex gap-2 mb-2">
+                        <x-akar-people-group class="size-8"/>
+                        <h3 class="card-title">Partner</h3>
+                    </div>
                     <p>{{ $event->partner }}</p>
                 </div>
             </div>
             <div
                 class="card card-border">
                 <div class="card-body">
-                    <h3 class="card-title">Event Period</h3>
+                    <div class="flex gap-2 mb-2">
+                        <x-akar-calendar class="size-8"/>
+                        <h3 class="card-title">Event Period</h3>
+                    </div>
                     <p>
                         <span data-time="{{ $event->start_date }}">{{ $event->start_date }}</span>
                         to <span data-time="{{ $event->end_date }}">{{ $event->end_date }}</span>
@@ -63,7 +72,10 @@
             <div
                 class="card card-border">
                 <div class="card-body">
-                    <h3 class="card-title">Registration Period</h3>
+                    <div class="flex gap-2 mb-2">
+                        <x-akar-edit class="size-8"/>
+                        <h3 class="card-title">Registration Period</h3>
+                    </div>
                     <p>
                         <span
                             data-time="{{ $event->registration_start_date }}">{{ $event->registration_start_date }}</span>
