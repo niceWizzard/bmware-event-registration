@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventManageController;
 use App\Http\Controllers\EventRegistrationController;
 
 Route::prefix('events')
@@ -12,6 +13,12 @@ Route::prefix('events')
             Route::post('/create', 'store')->name('.store');
             Route::get('/{short_name}/edit', 'edit')->name('.edit');
             Route::patch('/{short_name}/edit', 'update')->name('.update');
+
+            Route::controller(EventManageController::class)->group(function () {
+                Route::get('/{short_name}/manage', 'manage')->name('.manage');
+                Route::get('/{short_name}/download', 'download')->name('.download');
+            });
+
         });
         Route::get('/{short_name}', 'show')->name('.show');
         Route::post('/{short_name}', [EventRegistrationController::class, 'store'])->name('.register');

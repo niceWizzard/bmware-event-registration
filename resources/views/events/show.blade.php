@@ -6,7 +6,7 @@
     @auth
         <x-slot:headerActions>
             <a class="hover:underline" href="{{route('events.edit', $event->short_name)}}">Edit</a>
-            <a class="hover:underline" href="{{route('home')}}">Manage</a>
+            <a class="hover:underline" href="{{route('events.manage', $event->short_name)}}">Manage</a>
         </x-slot:headerActions>
     @endauth
     <section
