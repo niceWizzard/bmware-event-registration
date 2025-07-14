@@ -1,13 +1,6 @@
 <script defer>
     let quill;
 
-    function setDescriptionValue() {
-        const input = document.querySelector('input[name="description"]');
-        const html = quill.root.innerHTML;
-
-        input.value = html === '<p><br></p>' ? '' : html;
-    }
-
     document.addEventListener('DOMContentLoaded', (event) => {
         window.flatpickr(".datetime-picker", {
             enableTime: true,
@@ -31,6 +24,8 @@
             placeholder: 'Type your text here...',
             theme: 'snow'
         });
+
+        window.quill = quill;
 
         quill.root.addEventListener('drop', function (e) {
             e.preventDefault();
