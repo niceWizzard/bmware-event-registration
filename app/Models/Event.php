@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class Event extends Model
 {
@@ -17,7 +16,6 @@ class Event extends Model
     protected $fillable = [
         'title',
         'short_name',
-        'slug',
         'description',
         'venue',
         'partner',
@@ -42,14 +40,6 @@ class Event extends Model
     protected $appends = [
         'banner_url',
     ];
-
-    public static function generateSlug(string $title, int $limit = 72): string
-    {
-        // Convert title to a slug (e.g., "Hello World!" => "hello-world")
-        return Str::slug(
-            Str::limit($title, $limit, '')
-        );
-    }
 
     public function registrations(): HasMany
     {

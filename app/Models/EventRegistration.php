@@ -24,7 +24,7 @@ class EventRegistration extends Model
     ];
 
     protected $appends = [
-        'slug',
+        'short_name',
     ];
 
     protected $hidden = [
@@ -45,10 +45,10 @@ class EventRegistration extends Model
         return $this->belongsTo(Event::class, 'event_id');
     }
 
-    public function slug(): Attribute
+    public function shortName(): Attribute
     {
         return Attribute::get(function (): string {
-            return $this->event->slug;
+            return $this->event->short_name;
         });
     }
 }

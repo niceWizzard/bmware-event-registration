@@ -8,7 +8,7 @@
                     {{$event->title}}
                 </p>
                 <p>
-                    {{$event->slug}}
+                    {{$event->short_name}}
                 </p>
             </li>
         @endforeach

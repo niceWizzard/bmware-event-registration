@@ -10,12 +10,12 @@ Route::prefix('events')
         Route::middleware('auth')->group(function () {
             Route::get('/create', 'create')->name('.create');
             Route::post('/create', 'store')->name('.store');
-            Route::get('/{slug}/edit', 'edit')->name('.edit');
-            Route::patch('/{slug}/edit', 'update')->name('.update');
+            Route::get('/{short_name}/edit', 'edit')->name('.edit');
+            Route::patch('/{short_name}/edit', 'update')->name('.update');
         });
-        Route::get('/{slug}', 'show')->name('.show');
-        Route::post('/{slug}', [EventRegistrationController::class, 'store'])->name('.register');
-        Route::post('/{slug}/clear', [EventRegistrationController::class, 'clear'])->name('.clear');
-        Route::get('/{slug}/{token}', [EventRegistrationController::class, 'showQr'])->name('.show-qr');
+        Route::get('/{short_name}', 'show')->name('.show');
+        Route::post('/{short_name}', [EventRegistrationController::class, 'store'])->name('.register');
+        Route::post('/{short_name}/clear', [EventRegistrationController::class, 'clear'])->name('.clear');
+        Route::get('/{short_name}/{token}', [EventRegistrationController::class, 'showQr'])->name('.show-qr');
         Route::get('/', 'index')->name('.index');
     });

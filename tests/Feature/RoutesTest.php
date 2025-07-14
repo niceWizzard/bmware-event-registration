@@ -44,7 +44,7 @@ class RoutesTest extends TestCase
     public function test_events_show_page(): void
     {
         $event = Event::factory()->create();
-        $this->get(route('events.show', $event->slug))
+        $this->get(route('events.show', $event->short_name))
             ->assertOk();
     }
 
@@ -56,7 +56,7 @@ class RoutesTest extends TestCase
         ]);
 
         $this->get(
-            route('events.show-qr', [$event->slug, $eventRegistration->token])
+            route('events.show-qr', [$event->short_name, $eventRegistration->token])
         )->assertOk();
     }
 }

@@ -18,9 +18,9 @@ class EventController extends Controller
         return view('events.index', compact('events'));
     }
 
-    public function show(string $slug)
+    public function show(string $shortName)
     {
-        $event = Event::whereSlug($slug)->firstOrFail();
+        $event = Event::whereShortName($shortName)->firstOrFail();
 
         return view('events.show', compact('event'));
     }
@@ -67,14 +67,13 @@ class EventController extends Controller
 
         $event = Event::create([
             ...$data,
-            'slug' => Event::generateSlug($data['title']),
             'start_date' => Carbon::parse($data['start_date']),
             'end_date' => Carbon::parse($data['end_date']),
             'registration_start_date' => Carbon::parse($data['registration_start_date']),
             'registration_end_date' => Carbon::parse($data['registration_end_date']),
         ]);
 
-        return Redirect::route('events.show', $event->slug);
+        return Redirect::route('events.show', $event->short_name);
 
     }
 
@@ -83,16 +82,16 @@ class EventController extends Controller
         return view('events.create');
     }
 
-    public function edit(Request $request, string $slug)
+    public function edit(Request $request, string $shortName)
     {
-        $event = Event::whereSlug($slug)->firstOrFail();
+        $event = Event::whereShortName($shortName)->firstOrFail();
 
         return view('events.edit', compact('event'));
     }
 
-    public function update(string $slug, Request $request)
+    public function update(string $shortName, Request $request)
     {
-        $event = Event::whereSlug($slug)->firstOrFail();
+        $event = Event::whereShortName($shortName)->firstOrFail();
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'string', 'max:255'],
             'short_name' => [
@@ -136,6 +135,6 @@ class EventController extends Controller
 
         $event->update($data);
 
-        return Redirect::route('events.show', $event->slug);
+        return Redirect::route('events.show', $event->short_name);
     }
 }

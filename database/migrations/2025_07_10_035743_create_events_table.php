@@ -13,7 +13,6 @@ return new class extends Migration {
         Schema::create('events', static function (Blueprint $table) {
             $table->id();
             $table->string('title', 256);
-            $table->string('slug', 256)->unique();
             $table->string('short_name', 72)->unique();
             $table->string('banner')->nullable();
             $table->longText('description')->nullable();

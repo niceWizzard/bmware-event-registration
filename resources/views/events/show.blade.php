@@ -5,7 +5,7 @@
 <x-header-layout title="Event" link-to="{{route('home')}}">
     @auth
         <x-slot:headerActions>
-            <a class="hover:underline" href="{{route('events.edit', $event->slug)}}">Edit</a>
+            <a class="hover:underline" href="{{route('events.edit', $event->short_name)}}">Edit</a>
             <a class="hover:underline" href="{{route('home')}}">Manage</a>
         </x-slot:headerActions>
     @endauth
@@ -90,7 +90,7 @@
         <div class="flex flex-col gap-2 w-full">
             @if(is_null($registrationCookie))
                 <h3 class="text-lg text-center " id="register">Register now!</h3>
-                <x-registration-form action="{{route('events.register', $event->slug)}}"/>
+                <x-registration-form action="{{route('events.register', $event->short_name)}}"/>
             @else
                 <h3 class="text-lg text-center font-bold" id="register">
                     You already registered in this event
@@ -103,13 +103,13 @@
                 <form
                     class="flex justify-center gap-2"
                     method="POST"
-                    action="{{route('events.clear', $event->slug)}}"
+                    action="{{route('events.clear', $event->short_name)}}"
                 >
                     @csrf
                     <button type="submit" class="btn btn-primary">
                         Register new
                     </button>
-                    <a href="{{route('events.show-qr', [$event->slug, $registrationCookie])}}"
+                    <a href="{{route('events.show-qr', [$event->short_name, $registrationCookie])}}"
                        class="btn btn-secondary">
                         View QR Code
                     </a>

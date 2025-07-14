@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Event;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -23,7 +22,6 @@ class EventFactory extends Factory
         $shortName = $this->faker->unique()->word();
         return [
             'title' => $title,
-            'slug' => Event::generateSlug($title),
             'short_name' => $shortName,
             'description' => $this->faker->realText('1000'),
             'venue' => $this->faker->address(),

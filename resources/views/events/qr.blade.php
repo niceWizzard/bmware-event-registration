@@ -15,7 +15,7 @@
         >
             Download QR Code
         </a>
-        <a href="{{route('events.show', $event->slug)}}" class="btn btn-secondary">
+        <a href="{{route('events.show', $event->short_name)}}" class="btn btn-secondary">
             Back to Event
         </a>
     </div>

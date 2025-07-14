@@ -25,7 +25,7 @@ class EventVisitTest extends TestCase
     public function test_show_page(): void
     {
         $event = Event::factory()->create();
-        $res = $this->get(route('events.show', $event->slug));
+        $res = $this->get(route('events.show', $event->short_name));
 
         $res->assertSee($event->title);
         $res->assertViewHas('event', $event);
@@ -34,7 +34,7 @@ class EventVisitTest extends TestCase
     public function test_only_guest_users_cannot_visit(): void
     {
         $event = Event::factory()->create();
-        $this->get(route('events.create', $event->slug))->assertRedirect(route('login'));
+        $this->get(route('events.create', $event->short_name))->assertRedirect(route('login'));
         $this->post(route('events.store'), Event::factory()->make()->attributesToArray())
             ->assertRedirect(route('login'));
     }

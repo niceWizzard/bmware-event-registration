@@ -7,7 +7,7 @@
         @foreach($events as $event)
             <a
                 class="flex flex-col justify-between bg-[var(--color-surface-alt)] text-[var(--color-on-surface)] border border-[var(--color-outline)] hover:shadow-lg transition-shadow duration-300 rounded-[var(--radius-radius)] overflow-hidden p-4 min-h-[10rem]"
-                href="{{ route('events.show', $event->slug) }}"
+                href="{{ route('events.show', $event->short_name) }}"
             >
                 <div class="space-y-2">
                     <h3 class="text-base font-semibold text-[var(--color-on-surface-strong)] hover:underline">

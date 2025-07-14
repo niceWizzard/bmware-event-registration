@@ -13,9 +13,9 @@ use Illuminate\Validation\Rule;
 
 class EventRegistrationController extends Controller
 {
-    public function store(Request $request, string $slug): RedirectResponse
+    public function store(Request $request, string $shortName): RedirectResponse
     {
-        $event = Event::whereSlug($slug)->firstOrFail();
+        $event = Event::whereShortName($shortName)->firstOrFail();
         $data = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -33,24 +33,24 @@ class EventRegistrationController extends Controller
             Cookie::make('event_' . $event->id, $registration->token, 60 * 24 * 7)
         );
 
-        return Redirect::route('events.show-qr', [$event->slug, $registration->token]);
+        return Redirect::route('events.show-qr', [$event->short_name, $registration->token]);
     }
 
-    public function showQr(string $slug, string $token)
+    public function showQr(string $shortName, string $token)
     {
-        $event = Event::whereSlug($slug)->firstOrFail();
+        $event = Event::whereShortName($shortName)->firstOrFail();
         $registration = EventRegistration::whereToken($token)->firstOrFail()->attributesToArray();
         $qrCodeData = [
-            'slug' => $event->slug,
+            'short_name' => $event->short_name,
             ...$registration,
         ];
 
         return view('events.qr', compact('event', 'qrCodeData'));
     }
 
-    public function clear(string $slug)
+    public function clear(string $shortName)
     {
-        $event = Event::whereSlug($slug)->firstOrFail();
+        $event = Event::whereShortName($shortName)->firstOrFail();
         $registrationCookie = Cookie::get('event_' . $event->id);
         if (is_null($registrationCookie)) {
             return back()->with([

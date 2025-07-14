@@ -18,7 +18,7 @@ class EventCreateTest extends TestCase
     {
         $attributes = Arr::except(
             Event::factory()->make()->attributesToArray(),
-            ['banner_url', 'slug']
+            ['banner_url', 'short_name']
         );
         $this->actingAs(User::factory()->create());
         foreach ($attributes as $attribute => $value) {
