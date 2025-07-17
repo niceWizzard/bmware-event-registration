@@ -15,7 +15,7 @@
     $hasError = $errors->has($name);
 @endphp
 
-<fieldset class="@twMerge(['fieldset', $containerClass])">
+<fieldset class="{{twMerge(['fieldset', $containerClass])}}">
     @unless($hidden)
         <legend class="@if($hasError)text-error @endif fieldset-legend">
             {{ $label }}
