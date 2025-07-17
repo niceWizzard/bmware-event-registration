@@ -3,26 +3,31 @@
 @endphp
 
 <x-header-layout title="Events">
-    <section class="p-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 container mx-auto">
+    <section class="p-8 w-full gap-6 flex flex-wrap container mx-auto">
         @foreach($events as $event)
-            <a
-                class="flex flex-col justify-between bg-[var(--color-surface-alt)] text-[var(--color-on-surface)] border border-[var(--color-outline)] hover:shadow-lg transition-shadow duration-300 rounded-[var(--radius-radius)] overflow-hidden p-4 min-h-[10rem]"
-                href="{{ route('events.show', $event->short_name) }}"
+            <div
+                class="card card-border w-md"
             >
-                <div class="space-y-2">
-                    <h3 class="text-base font-semibold text-[var(--color-on-surface-strong)] hover:underline">
-                        {{ Str::limit($event->title, 36) }}
+                <div class="card-body">
+                    <h3 class="card-title">
+                        <a href="{{route('events.show', $event->short_name)}}">
+                            {{Str::limit($event->title, 64)}}
+                        </a>
                     </h3>
-                    <small class="text-xs text-[var(--color-on-surface)]"
-                           data-time="{{ $event->created_at->toIso8601String() }}">
-                        {{-- JS will localize this --}}
-                        {{ $event->created_at->format('D, h:i A') }}
-                    </small>
-                    <p class="text-sm text-[var(--color-on-surface)]">
-                        {{ Str::limit($event->description, 72) }}
-                    </p>
+                    <p class="text-sm font-light">{{ $event->created_at?->format('D, h:i A') }}</p>
+                    <div class="card-actions justify-end items-center">
+                        <div class="flex-1">
+                                <span class="text-sm font-medium text-gray-700">
+                                    {{ number_format($event->registrations_count ?? 0) }} <span class="text-gray-500">Registrations</span>
+                                </span>
+                        </div>
+                        <a href="{{route('events.show', $event->short_name)}}" class="btn btn-primary">
+                            <x-fas-eye class="size-4"/>
+                            View
+                        </a>
+                    </div>
                 </div>
-            </a>
+            </div>
         @endforeach
     </section>
 
