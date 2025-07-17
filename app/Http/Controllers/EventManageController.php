@@ -9,8 +9,15 @@ class EventManageController extends Controller
 {
     public function manage(string $shortName)
     {
-        $event = Event::whereShortName($shortName)->firstOrFail();
-
+        $event = Event::whereShortName($shortName)->withCount([
+            'registrations as male_registrations' => function ($query) {
+                $query->where('gender', 'male');
+            },
+            'registrations as female_registrations' => function ($query) {
+                $query->where('gender', 'female');
+            },
+            'registrations as total_registrations',
+        ])->firstOrFail();
         return view('events.manage', compact('event'));
     }
 
