@@ -13,7 +13,7 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::all();
+        $events = Event::withCount('registrations')->get();
 
         return view('events.index', compact('events'));
     }
