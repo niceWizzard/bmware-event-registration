@@ -125,20 +125,7 @@
     {{-- Localize all date/times using browser locale --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('[data-time]').forEach(el => {
-                const raw = el.dataset.time;
-                if (!raw) return;
-                const date = new Date(raw);
-                el.textContent = new Intl.DateTimeFormat(navigator.language, {
-                    weekday: 'short',
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    hour12: true
-                }).format(date);
-            });
+            window.transformDataTime();
         });
     </script>
 </x-header-layout>
