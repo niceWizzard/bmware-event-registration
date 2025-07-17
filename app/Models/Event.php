@@ -31,10 +31,10 @@ class Event extends Model
     ];
 
     protected $casts = [
-        'registration_start' => 'datetime',
-        'registration_end' => 'datetime',
-        'start' => 'datetime',
-        'end' => 'datetime',
+        'registration_start_date' => 'datetime',
+        'registration_end_date' => 'datetime',
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
     ];
 
     protected $appends = [
