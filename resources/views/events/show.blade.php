@@ -13,8 +13,9 @@
         class="container mx-auto my-6 p-6 space-y-6  rounded-radius text-on-surface ">
         {{-- Banner --}}
         @if ($event->banner)
-            <div class="overflow-hidden rounded-radius shadow">
-                <img src="{{ $event->banner_url }}" alt="{{ $event->title }}" class="w-full h-64 object-cover"/>
+            <div class="">
+                <img src="{{ asset('storage/' . $event->banner) }}" alt="{{ $event->title }}"
+                     class="w-full h-64 object-contain"/>
             </div>
         @endif
         <a href="#register" class="underline">Register now</a>

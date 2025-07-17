@@ -20,6 +20,7 @@
     @submit.prevent="isLoading = true; setDescriptionValue(); $el.submit()"
     action="{{ $action }}"
     method="{{ $method }}"
+    enctype="multipart/form-data"
 >
     @csrf
     @if($specialMethod)
@@ -50,6 +51,41 @@
                 <x-fas-tag class="size-4"/>
             </x-slot:icon>
         </x-form-input>
+        @if ($event?->banner)
+            <div class="col-span-2 flex flex-col gap-2"
+                 x-data="{clearBanner: false}"
+            >
+                <h3 class="text-lg">Current Banner</h3>
+                <img src="{{ asset('storage/' . $event->banner) }}"
+                     alt="Current Banner"
+                     class="object-contain"
+                     x-show="!clearBanner"
+                >
+                <label>
+                    <input name="clear_banner" type="checkbox" x-model="clearBanner" class="checkbox">
+                    Clear Banner Instead.
+                    <br>
+                    <span x-show="clearBanner">Banner will be removed after submission.</span>
+                    @if($errors->has('clear_banner'))
+                        <p class="text-sm text-error">
+                            {{$errors->first('clear_banner')}}
+                        </p>
+                    @endif
+                </label>
+            </div>
+        @endif
+        <div class="flex flex-col">
+            <fieldset class="fieldset w-full">
+                <legend class="fieldset-legend">Event Banner</legend>
+                <input type="file" name="event_banner" class="file-input w-full"/>
+                <label class="label">Max size 2MB</label>
+                @if($errors->has('event_banner'))
+                    <p class="text-sm text-error">
+                        {{$errors->first('event_banner')}}
+                    </p>
+                @endif
+            </fieldset>
+        </div>
         <x-form-input
             name="partner"
             container-class="w-full"
