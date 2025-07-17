@@ -12,13 +12,21 @@
             name="email"
             type="email"
             required
-        />
+        >
+            <x-slot:icon>
+                <x-fas-user class="size-4"/>
+            </x-slot:icon>
+        </x-form-input>
         <x-form-input
             name="password"
             label="Password"
             type="password"
             required
-        />
+        >
+            <x-slot:icon>
+                <x-fas-lock class="size-4"/>
+            </x-slot:icon>
+        </x-form-input>
         <button
             class="btn btn-primary"
             type="submit"
