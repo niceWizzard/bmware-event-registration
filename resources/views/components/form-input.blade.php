@@ -25,9 +25,6 @@
         </legend>
     @endunless
 
-    @if ($tip)
-        <p class="label">{{ $tip }}</p>
-    @endif
 
     <label class="{{ twMerge('input w-full flex items-center gap-2', $hasError ? 'input-error' : '') }}">
         @if($icon)
@@ -49,7 +46,9 @@
             ]) }}
         />
     </label>
-
+    @if ($tip)
+        <p class="label text-sm">{{ $tip }}</p>
+    @endif
     @if ($hasError)
         <small class="text-sm pl-0.5 text-error">{{ $errors->first($name) }}</small>
     @endif
