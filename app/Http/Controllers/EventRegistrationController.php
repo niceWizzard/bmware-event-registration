@@ -16,6 +16,9 @@ class EventRegistrationController extends Controller
     public function store(Request $request, string $shortName): RedirectResponse
     {
         $event = Event::whereShortName($shortName)->firstOrFail();
+        if (! $event->can_register) {
+            return Redirect::back()->with('error', 'Event registration already ended!');
+        }
         $data = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -30,7 +33,7 @@ class EventRegistrationController extends Controller
             'event_id' => $event->id,
         ]);
         Cookie::queue(
-            Cookie::make('event_' . $event->id, $registration->token, 60 * 24 * 7)
+            Cookie::make('event_'.$event->id, $registration->token, 60 * 24 * 7)
         );
 
         return Redirect::route('events.show-qr', [$event->short_name, $registration->token]);
@@ -51,19 +54,19 @@ class EventRegistrationController extends Controller
     public function clear(string $shortName)
     {
         $event = Event::whereShortName($shortName)->firstOrFail();
-        $registrationCookie = Cookie::get('event_' . $event->id);
+        $registrationCookie = Cookie::get('event_'.$event->id);
         if (is_null($registrationCookie)) {
             return back()->with([
                 'message' => 'Registration cookie not found.',
             ]);
         }
         Cookie::queue(
-            Cookie::forget('event_' . $event->id)
+            Cookie::forget('event_'.$event->id)
         );
 
         $previousUrl = url()->previous();
 
-        if (!str_contains($previousUrl, '#register')) {
+        if (! str_contains($previousUrl, '#register')) {
             $previousUrl .= '#register';
         }
 

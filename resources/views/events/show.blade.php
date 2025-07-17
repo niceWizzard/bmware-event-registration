@@ -87,34 +87,37 @@
         </div>
 
         {{-- Form --}}
-        <div class="flex flex-col gap-2 w-full">
-            @if(is_null($registrationCookie))
-                <h3 class="text-lg text-center " id="register">Register now!</h3>
-                <x-registration-form action="{{route('events.register', $event->short_name)}}"/>
-            @else
-                <h3 class="text-lg text-center font-bold" id="register">
-                    You already registered in this event
-                </h3>
-                @if(session('message'))
-                    <p class="text-danger">
-                        {{session('message')}}
-                    </p>
+        <div class="flex flex-col gap-2 w-full" id="register">
+            @if($event->can_register)
+                @if(is_null($registrationCookie))
+                    <h3 class="text-lg text-center ">Register now!</h3>
+                    <x-registration-form action="{{route('events.register', $event->short_name)}}"/>
+                @else
+                    <h3 class="text-lg text-center font-bold" id="register">
+                        You already registered in this event
+                    </h3>
+                    @if(session('message'))
+                        <p class="text-danger">
+                            {{session('message')}}
+                        </p>
+                    @endif
+                    <form
+                        class="flex justify-center gap-2"
+                        method="POST"
+                        action="{{route('events.clear', $event->short_name)}}"
+                    >
+                        @csrf
+                        <button type="submit" class="btn btn-primary">
+                            Register new
+                        </button>
+                        <a href="{{route('events.show-qr', [$event->short_name, $registrationCookie])}}"
+                           class="btn btn-secondary">
+                            View QR Code
+                        </a>
+                    </form>
                 @endif
-                <form
-                    class="flex justify-center gap-2"
-                    method="POST"
-                    action="{{route('events.clear', $event->short_name)}}"
-                >
-                    @csrf
-                    <button type="submit" class="btn btn-primary">
-                        Register new
-                    </button>
-                    <a href="{{route('events.show-qr', [$event->short_name, $registrationCookie])}}"
-                       class="btn btn-secondary">
-                        View QR Code
-                    </a>
-                </form>
-
+            @else
+                <h3 class="text-center">Registration Period Ended</h3>
             @endif
         </div>
     </section>
