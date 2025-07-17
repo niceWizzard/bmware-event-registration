@@ -52,4 +52,28 @@ class Event extends Model
             return Storage::disk('public')->url($this->banner);
         });
     }
+
+    public function canRegister(): Attribute
+    {
+        return Attribute::get(function (): bool {
+            return $this->start_date->isAfter(now()) &&
+                $this->registration_end_date->isBefore(now());
+        });
+    }
+
+    public function status(): Attribute
+    {
+        return Attribute::get(function (): string {
+            $eventOnGoing = $this->start_date->isAfter(now());
+
+            $eventStatus = 'Pending';
+            if ($eventOnGoing && $this->end_date->isBefore(now())) {
+                $eventStatus = 'On-Going';
+            } else {
+                $eventStatus = 'Ended';
+            }
+            return $eventStatus;
+        });
+    }
+
 }
