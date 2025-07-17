@@ -32,7 +32,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
         <x-form-input
             name="title"
-            value="{{ old('title', $event?->title) }}"
+            :value="old('title', $event?->title)"
             container-class="w-full "
         >
             <x-slot:icon>
@@ -43,7 +43,7 @@
         <x-form-input
             name="short_name"
             tip="This will be shown in QR codes and the likes."
-            value="{{ old('short_name', $event?->short_name) }}"
+            :value="old('short_name', $event?->short_name)"
             container-class="w-full "
         >
             <x-slot:icon>
@@ -53,7 +53,7 @@
         <x-form-input
             name="partner"
             container-class="w-full"
-            value="{{ old('partner', $event?->partner) }}"
+            :value="old('partner', $event?->partner)"
         >
             <x-slot:icon>
                 <x-akar-people-group class="size-4"/>
@@ -62,7 +62,7 @@
         <x-form-input
             name="venue"
             container-class="w-full"
-            value="{{ old('venue', $event?->venue) }}"
+            :value="old('venue', $event?->venue)"
         >
             <x-slot:icon>
                 <x-akar-location class="size-4"/>
@@ -75,7 +75,7 @@
             name="start_date"
             class="datetime-picker"
             container-class="w-full"
-            value="{{ old('start_date', $event?->start_date) }}"
+            :value="old('start_date', $event?->start_date)"
         >
             <x-slot:icon>
                 <x-akar-calendar class="size-4"/>
@@ -85,7 +85,7 @@
             name="end_date"
             class="datetime-picker"
             container-class="w-full"
-            value="{{ old('end_date', $event?->end_date) }}"
+            :value="old('end_date', $event?->end_date)"
         >
             <x-slot:icon>
                 <x-akar-calendar class="size-4"/>
@@ -95,7 +95,7 @@
             name="registration_start_date"
             class="datetime-picker"
             container-class="w-full"
-            value="{{ old('registration_start_date', $event?->registration_start_date) }}"
+            :value="old('registration_start_date', $event?->registration_start_date)"
         >
             <x-slot:icon>
                 <x-akar-calendar class="size-4"/>
@@ -105,7 +105,7 @@
             name="registration_end_date"
             class="datetime-picker"
             container-class="w-full"
-            value="{{ old('registration_end_date', $event?->registration_end_date) }}"
+            :value="old('registration_end_date', $event?->registration_end_date)"
         >
             <x-slot:icon>
                 <x-akar-calendar class="size-4"/>
