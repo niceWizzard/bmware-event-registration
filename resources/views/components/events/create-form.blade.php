@@ -29,26 +29,27 @@
         @method($method)
     @endif
 
-    <x-form-input
-        name="title"
-        value="{{ old('title', $event?->title) }}"
-    >
-        <x-slot:icon>
-            <x-akar-edit class="size-4"/>
-        </x-slot:icon>
-    </x-form-input>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <x-form-input
+            name="title"
+            value="{{ old('title', $event?->title) }}"
+            container-class="w-full "
+        >
+            <x-slot:icon>
+                <x-akar-edit class="size-4"/>
+            </x-slot:icon>
+        </x-form-input>
 
-    <x-form-input
-        name="short_name"
-        tip="This will be shown in QR codes and the likes."
-        value="{{ old('short_name', $event?->short_name) }}"
-    >
-        <x-slot:icon>
-            <x-fas-tag class="size-4"/>
-        </x-slot:icon>
-    </x-form-input>
-
-    <div class="flex gap-2 w-full max-sm:flex-col">
+        <x-form-input
+            name="short_name"
+            tip="This will be shown in QR codes and the likes."
+            value="{{ old('short_name', $event?->short_name) }}"
+            container-class="w-full "
+        >
+            <x-slot:icon>
+                <x-fas-tag class="size-4"/>
+            </x-slot:icon>
+        </x-form-input>
         <x-form-input
             name="partner"
             container-class="w-full"
@@ -69,7 +70,7 @@
         </x-form-input>
     </div>
 
-    <div class="flex gap-2 w-full max-sm:flex-col">
+    <div class="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-2">
         <x-form-input
             name="start_date"
             class="datetime-picker"
@@ -90,8 +91,6 @@
                 <x-akar-calendar class="size-4"/>
             </x-slot:icon>
         </x-form-input>
-    </div>
-    <div class="flex gap-2 max-sm:flex-col">
         <x-form-input
             name="registration_start_date"
             class="datetime-picker"
@@ -113,6 +112,7 @@
             </x-slot:icon>
         </x-form-input>
     </div>
+
     <label for="description" class="text-lg font-medium">
         Body
     </label>
@@ -121,9 +121,15 @@
         {!! old('description', $event?->description) !!}
     </x-quill-editor>
 
-    <button class="btn btn-primary">
-        {{ $event ? 'Update' : 'Create' }}
-    </button>
+    <div class="flex max-sm:flex-col gap-2 justify-end">
+        <a href="{{route('events.index')}}" class="btn btn-secondary max-sm:w-full w-fit ">
+            Back
+        </a>
+        <button class="btn btn-primary max-sm:w-full w-fit ">
+            {{ $event ? 'Update' : 'Create' }}
+        </button>
+    </div>
+
 
     {{ $slot }}
 </form>
