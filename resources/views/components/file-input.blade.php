@@ -12,9 +12,10 @@
             >
             <label>
                 <input name="{{'clear_'.$name}}" type="checkbox" x-model="clearFile" class="checkbox">
-                Clear Banner Instead.
+                Clear {{\Illuminate\Support\Str::ucfirst($name)}} Instead.
                 <br>
-                <span x-show="clearFile">Banner will be removed after submission.</span>
+                <span
+                    x-show="clearFile">{{\Illuminate\Support\Str::ucfirst($name)}} will be removed after submission.</span>
                 @if($errors->has('clear_'.$name))
                     <p class="text-sm text-error">
                         {{$errors->first('clear_'.$name)}}
