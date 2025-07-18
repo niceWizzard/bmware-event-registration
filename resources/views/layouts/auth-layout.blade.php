@@ -4,6 +4,7 @@
 >
     <x-slot:headerActions>
         @auth
+            <a href="{{route('admin.index')}}" class="btn btn-text">Admins</a>
             <form method="post" action="{{route('logout')}}">
                 @csrf
                 <button type="submit" class="btn btn-outline btn-error">Logout

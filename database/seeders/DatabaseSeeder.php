@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => '1@email.com',
             'password' => Hash::make('password'),
+            'role' => 1,
         ]);
 
         Event::factory(10)->create();
