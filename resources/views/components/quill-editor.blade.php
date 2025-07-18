@@ -4,6 +4,9 @@
     document.addEventListener('DOMContentLoaded', (event) => {
         window.flatpickr(".datetime-picker", {
             enableTime: true,
+            dateFormat: 'Z',
+            altInput: true,
+            altFormat: 'Y-m-d h:i K'
         });
         quill = new Quill('#editor', {
             modules: {
