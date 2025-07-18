@@ -92,7 +92,7 @@
             name="start_date"
             class="datetime-picker"
             container-class="w-full"
-            :value="old('start_date', $event?->start_date)"
+            :value="old('start_date', $event?->start_date->toString())"
         >
             <x-slot:icon>
                 <x-akar-calendar class="size-4"/>
@@ -102,7 +102,7 @@
             name="end_date"
             class="datetime-picker"
             container-class="w-full"
-            :value="old('end_date', $event?->end_date)"
+            :value="old('end_date', $event?->end_date->toString())"
         >
             <x-slot:icon>
                 <x-akar-calendar class="size-4"/>
@@ -112,7 +112,7 @@
             name="registration_start_date"
             class="datetime-picker"
             container-class="w-full"
-            :value="old('registration_start_date', $event?->registration_start_date)"
+            :value="old('registration_start_date', $event?->registration_start_date->toString())"
         >
             <x-slot:icon>
                 <x-akar-calendar class="size-4"/>
@@ -122,7 +122,7 @@
             name="registration_end_date"
             class="datetime-picker"
             container-class="w-full"
-            :value="old('registration_end_date', $event?->registration_end_date)"
+            :value="old('registration_end_date', $event?->registration_end_date->toString())"
         >
             <x-slot:icon>
                 <x-akar-calendar class="size-4"/>

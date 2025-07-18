@@ -22,8 +22,8 @@
         {{-- Title + Meta --}}
         <div>
             <h1 class="text-2xl font-semibold text-on-surface-strong">{{ $event->title }}</h1>
-            <p class="text-sm text-[var(--color-on-surface)]" data-time="{{ $event->created_at?->toIso8601String() }}">
-                Created: {{ $event->created_at?->format('D, h:i A') }}
+            <p class="text-sm text-[var(--color-on-surface)]">
+                Created:<span data-time="true"> {{ $event->created_at->toString()}}</span>
             </p>
         </div>
 
@@ -79,8 +79,8 @@
                         <h3 class="card-title">Event Period</h3>
                     </div>
                     <p>
-                        <span data-time="{{ $event->start_date }}">{{ $event->start_date }}</span>
-                        to <span data-time="{{ $event->end_date }}">{{ $event->end_date }}</span>
+                        <span data-time="true">{{ $event->start_date->toString() }}</span>
+                        to <span data-time="true">{{ $event->end_date->toString() }}</span>
                     </p>
                 </div>
             </div>
@@ -93,9 +93,9 @@
                     </div>
                     <p>
                         <span
-                            data-time="{{ $event->registration_start_date }}">{{ $event->registration_start_date }}</span>
+                            data-time="true">{{ $event->registration_start_date->toString() }}</span>
                         to <span
-                            data-time="{{ $event->registration_end_date}}">{{ $event->registration_end_date }}</span>
+                            data-time="true">{{ $event->registration_end_date->toString() }}</span>
                     </p>
                 </div>
             </div>
@@ -135,7 +135,7 @@
                 <h3 class="text-center">
                     @if($event->registration_start_date->gt(now()))
                         Registration will start at <span
-                            data-time="{{$event->registration_start_date}}">{{$event->registration_start_date}}</span>
+                            data-time="true">{{$event->registration_start_date->toString()}}</span>
                     @else
                         Registration Period Ended
                     @endif

@@ -14,7 +14,7 @@ Alpine.start()
 
 const transformDataTime = () => {
     document.querySelectorAll('[data-time]').forEach(el => {
-        const raw = el.dataset.time;
+        const raw = el.textContent;
         if (!raw) return;
         const date = new Date(raw);
         el.textContent = new Intl.DateTimeFormat(navigator.language, {
