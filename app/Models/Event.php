@@ -48,8 +48,9 @@ class Event extends Model
     public function canRegister(): Attribute
     {
         return Attribute::get(function (): bool {
-            return $this->start_date->isAfter(now()) &&
-                $this->registration_end_date->isBefore(now());
+            $now = now();
+            return $this->registration_start_date->lte($now) &&
+                $this->registration_end_date->gte($now);
         });
     }
 
