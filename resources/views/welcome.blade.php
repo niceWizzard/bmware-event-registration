@@ -26,6 +26,11 @@
         <section id="events" class="py-16 px-6 bg-gray-100">
             <div class="max-w-5xl mx-auto">
                 <h3 class="text-2xl font-bold text-center text-primary-700 mb-10">Upcoming Events</h3>
+                @if(!count($upcomingEvents))
+                    <p class="text-center w-full ">
+                        No events yet.
+                    </p>
+                @endif
                 <div class="grid md:grid-cols-3 gap-8 place-content-center ">
                     @foreach($upcomingEvents as $event)
                         <a href="{{route('events.show', $event->short_name)}}" class="card shadow-sm bg-white">
@@ -41,6 +46,7 @@
                             </div>
                         </a>
                     @endforeach
+
                 </div>
             </div>
         </section>

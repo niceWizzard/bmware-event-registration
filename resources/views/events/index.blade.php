@@ -10,6 +10,9 @@
                     class="card card-border w-sm"
                 >
                     <div class="card-body">
+                        <span class="badge badge-{{strtolower($event->status)}}">
+                            {{$event->status}}
+                        </span>
                         <h3 class="card-title">
                             <a href="{{route('events.show', $event->short_name)}}">
                                 {{Str::limit($event->title, 64)}}
