@@ -54,7 +54,7 @@
         <x-file-input
             name="banner"
             label="Event Banner"
-            :image-url="$event->banner"
+            :image-url="$event?->banner"
         />
         <x-form-input
             name="partner"
@@ -65,15 +65,26 @@
                 <x-akar-people-group class="size-4"/>
             </x-slot:icon>
         </x-form-input>
+        <x-file-input
+            name="partner_picture"
+            label="Partner Picture"
+            :image-url="$event?->partner_picture"
+        />
         <x-form-input
             name="venue"
             container-class="w-full"
             :value="old('venue', $event?->venue)"
         >
+
             <x-slot:icon>
                 <x-akar-location class="size-4"/>
             </x-slot:icon>
         </x-form-input>
+        <x-file-input
+            name="venue_picture"
+            label="Picture of Venue"
+            :image-url="$event?->venue_picture"
+        />
     </div>
 
     <div class="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-2">

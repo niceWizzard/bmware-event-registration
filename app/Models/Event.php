@@ -23,10 +23,14 @@ class Event extends Model
         'banner',
         'registration_start_date',
         'registration_end_date',
+        'venue_picture',
+        'partner_picture',
     ];
 
     protected $hidden = [
         'banner',
+        'partner_picture',
+        'venue_picture',
     ];
 
     protected $casts = [
@@ -35,7 +39,6 @@ class Event extends Model
         'start_date' => 'datetime',
         'end_date' => 'datetime',
     ];
-
 
     public function registrations(): HasMany
     {

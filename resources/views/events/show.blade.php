@@ -36,29 +36,43 @@
         @endif
 
         {{-- Event Details --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-            <div
-                class="card card-border">
-                <div class="card-body ">
-                    <div class="flex gap-2 mb-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="card bg-base-100  card-border w-full max-w-md mx-auto max-h-96">
+                @if($event->venue_picture)
+                    <figure>
+                        <img src="{{ asset('storage/' . $event->venue_picture) }}"
+                             alt="{{ $event->title }}"
+                        />
+                    </figure>
+                @endif
+
+                <div class="card-body space-y-2">
+                    <div class="flex items-center gap-2">
                         <x-akar-location class="size-8"/>
-                        <h3 class="card-title">Venue</h3>
+                        <h3 class="card-title text-base-content">Venue</h3>
                     </div>
-                    <p>{{ $event->venue }}</p>
+                    <p class="text-base-content text-sm">{{ $event->venue }}</p>
                 </div>
             </div>
-            <div
-                class="card card-border">
-                <div class="card-body">
-                    <div class="flex gap-2 mb-2">
+            <div class="card bg-base-100  card-border w-full max-w-md mx-auto max-h-96">
+                @if($event->partner_picture)
+                    <figure>
+                        <img src="{{ asset('storage/' . $event->partner_picture) }}"
+                             alt="{{ $event->title }}"
+                             class="w-full h-full object-cover object-center"/>
+                    </figure>
+                @endif
+
+                <div class="card-body space-y-2">
+                    <div class="flex items-center gap-2">
                         <x-akar-people-group class="size-8"/>
-                        <h3 class="card-title">Partner</h3>
+                        <h3 class="card-title text-base-content">Partner</h3>
                     </div>
-                    <p>{{ $event->partner }}</p>
+                    <p class="text-base-content text-sm">{{ $event->partner }}</p>
                 </div>
             </div>
             <div
-                class="card card-border">
+                class="card card-border w-full max-w-md mx-auto">
                 <div class="card-body">
                     <div class="flex gap-2 mb-2">
                         <x-akar-calendar class="size-8"/>
@@ -71,7 +85,7 @@
                 </div>
             </div>
             <div
-                class="card card-border">
+                class="card card-border w-full max-w-md mx-auto">
                 <div class="card-body">
                     <div class="flex gap-2 mb-2">
                         <x-akar-edit class="size-8"/>

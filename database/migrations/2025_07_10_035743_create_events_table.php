@@ -17,7 +17,9 @@ return new class extends Migration {
             $table->string('banner')->nullable();
             $table->longText('description')->nullable();
             $table->string('venue', 256);
+            $table->string('venue_picture')->nullable();
             $table->string('partner', 256);
+            $table->string('partner_picture')->nullable();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->dateTime('registration_start_date');

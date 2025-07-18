@@ -51,6 +51,10 @@ class EventController extends Controller
             'registration_end_date' => ['required', 'date'],
             'banner' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
             'clear_banner' => ['sometimes'],
+            'partner_picture' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'clear_partner_picture' => ['sometimes'],
+            'venue_picture' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'clear_venue_picture' => ['sometimes'],
         ]);
 
         $validator->after(function ($validator) use ($request) {
@@ -86,16 +90,24 @@ class EventController extends Controller
             'banners',
         );
 
-            $data['banner'] = $request->file('event_banner')->store('banners', 'public');
-        } else if ($request->boolean('clear_banner')) {
-            if ($event->banner && Storage::disk('public')->exists($event->banner)) {
-                Storage::disk('public')->delete($event->banner);
-            }
-            $event->banner = null;
-            $event->save();
-        }
+        $data['partner_picture'] = $this->updateFile(
+            $request,
+            $event->partner_picture,
+            'partner_picture',
+            'clear_partner_picture',
+            'pictures'
+        );
+
+        $data['venue_picture'] = $this->updateFile(
+            $request,
+            $event->venue_picture,
+            'venue_picture',
+            'clear_venue_picture',
+            'pictures'
+        );
 
         $event->update($data);
+
         return Redirect::route('events.show', $event->short_name);
     }
 
@@ -114,6 +126,7 @@ class EventController extends Controller
             if ($existingPath && Storage::disk('public')->exists($existingPath)) {
                 Storage::disk('public')->delete($existingPath);
             }
+
             return null;
         }
         // If a new file is uploaded (and not marked for clearing), replace it
@@ -121,6 +134,7 @@ class EventController extends Controller
             if ($existingPath && Storage::disk('public')->exists($existingPath)) {
                 Storage::disk('public')->delete($existingPath);
             }
+
             return Storage::disk('public')->put($fileLocation, $request->file($fileName));
         }
 
@@ -139,7 +153,9 @@ class EventController extends Controller
             'end_date' => ['required', 'date'],
             'registration_start_date' => ['required', 'date'],
             'registration_end_date' => ['required', 'date'],
-            'event_banner' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'banner' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'venue_picture' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'partner_picture' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
         ]);
 
         $validator->after(function ($validator) use ($request) {
@@ -167,9 +183,17 @@ class EventController extends Controller
         $validator->validate();
 
         $data = $validator->validated();
-        if (isset($data['event_banner']) && $data['event_banner']) {
-            $data['banner'] = $request->file('event_banner')
+        if (isset($data['banner']) && $data['banner']) {
+            $data['banner'] = $request->file('banner')
                 ->store('banners', 'public');
+        }
+        if (isset($data['venue_picture']) && $data['venue_picture']) {
+            $data['venue_picture'] = $request->file('venue_picture')
+                ->store('pictures', 'public');
+        }
+        if (isset($data['partner_picture']) && $data['partner_picture']) {
+            $data['partner_picture'] = $request->file('partner_picture')
+                ->store('pictures', 'public');
         }
 
         $event = Event::create([
