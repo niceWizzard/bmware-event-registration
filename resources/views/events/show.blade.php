@@ -118,7 +118,14 @@
                     </form>
                 @endif
             @else
-                <h3 class="text-center">Registration Period Ended</h3>
+                <h3 class="text-center">
+                    @if($event->registration_start_date->gt(now()))
+                        Registration will start at <span
+                            data-time="{{$event->registration_start_date}}">{{$event->registration_start_date}}</span>
+                    @else
+                        Registration Period Ended
+                    @endif
+                </h3>
             @endif
         </div>
     </section>
