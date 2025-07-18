@@ -38,15 +38,15 @@
                     </h3>
                     <p>
                         <span class="font-medium">Event Period: </span>
-                        <span data-time="{{ $event->start_date }}">{{ $event->start_date }}</span>
-                        to <span data-time="{{ $event->end_date }}">{{ $event->end_date }}</span>
+                        <span data-time="true">{{ $event->start_date->toString() }}</span>
+                        to <span data-time="true">{{ $event->end_date->toString() }}</span>
                     </p>
                     <p>
                         <span class="font-medium">Registration Period: </span>
                         <span
-                            data-time="{{ $event->registration_start_date }}">{{ $event->registration_start_date }}</span>
+                            data-time="true">{{ $event->registration_start_date->toString() }}</span>
                         to <span
-                            data-time="{{ $event->registration_end_date }}">{{ $event->registration_end_date }}</span>
+                            data-time="true">{{ $event->registration_end_date->toString() }}</span>
                     </p>
                 </div>
             </div>
