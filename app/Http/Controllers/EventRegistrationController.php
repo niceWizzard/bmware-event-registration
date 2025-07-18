@@ -24,7 +24,7 @@ class EventRegistrationController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'mobile_number' => ['required', 'string', 'regex:/^09\d{9}$/'],
-            'gender' => ['required', Rule::in(['Male', 'Female'])],
+            'gender' => ['required', Rule::in(['male', 'female'])],
             'company' => ['nullable', 'string', 'max:255'],
         ], [
             'mobile_number.regex' => 'Invalid mobile number',

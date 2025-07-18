@@ -35,9 +35,15 @@
         required
     />
     <x-form-select name="gender">
-        <option disabled selected>Select Gender</option>
-        <option>Male</option>
-        <option>Female</option>
+        <option disabled
+                @if(!old('gender'))
+                    selected
+            @endif
+
+        >Select Gender
+        </option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
     </x-form-select>
     <x-form-input
         name="company"
