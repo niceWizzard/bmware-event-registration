@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOrUpdateEventRequest;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class EventController extends Controller
 {
@@ -33,55 +32,10 @@ class EventController extends Controller
         return view('events.edit', compact('event'));
     }
 
-    public function update(string $shortName, Request $request)
+    public function update(string $shortName, StoreOrUpdateEventRequest $request)
     {
         $event = Event::whereShortName($shortName)->firstOrFail();
-        $validator = Validator::make($request->all(), [
-            'title' => ['required', 'string', 'max:255'],
-            'short_name' => [
-                'required', 'string', 'max:72',
-                Rule::unique('events', 'short_name')->ignore($event->id),
-            ],
-            'partner' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
-            'venue' => ['required', 'string'],
-            'start_date' => ['required', 'date'],
-            'end_date' => ['required', 'date'],
-            'registration_start_date' => ['required', 'date'],
-            'registration_end_date' => ['required', 'date'],
-            'banner' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'clear_banner' => ['sometimes'],
-            'partner_picture' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'clear_partner_picture' => ['sometimes'],
-            'venue_picture' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'clear_venue_picture' => ['sometimes'],
-        ]);
-
-        $validator->after(function ($validator) use ($request) {
-            $start = Carbon::parse($request->start_date);
-            $end = Carbon::parse($request->end_date);
-            $regStart = Carbon::parse($request->registration_start_date);
-            $regEnd = Carbon::parse($request->registration_end_date);
-
-            if ($start->isAfter($end)) {
-                $validator->errors()->add('start_date', 'The start date must not be after the end date.');
-            }
-
-            if ($regStart->isAfter($regEnd)) {
-                $validator->errors()->add('registration_start_date', 'The registration start date must not be after the registration end date.');
-            }
-
-            if ($regEnd->isAfter($start)) {
-                $validator->errors()->add('registration_end_date', 'Registration must end before the event starts.');
-            }
-            if ($start->equalTo($end)) {
-                $validator->errors()->add('end_date', 'The end date must be after the start date.');
-            }
-        });
-
-        $validator->validate();
-
-        $data = $validator->validated();
+        $data = $request->validated();
         $data['banner'] = $this->updateFile(
             $request,
             $event->banner,
@@ -114,11 +68,10 @@ class EventController extends Controller
     public function updateFile(
         Request $request,
         ?string $existingPath,
-        string  $fileName,
-        string  $clearName,
-        string  $fileLocation
-    ): ?string
-    {
+        string $fileName,
+        string $clearName,
+        string $fileLocation
+    ): ?string {
         $shouldClear = $request->boolean($clearName);
         $hasNewFile = $request->hasFile($fileName);
 
@@ -141,48 +94,9 @@ class EventController extends Controller
         return $existingPath;
     }
 
-    public function store(Request $request)
+    public function store(StoreOrUpdateEventRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title' => ['required', 'string', 'max:255'],
-            'short_name' => ['required', 'string', 'max:72', Rule::unique('events', 'short_name')],
-            'partner' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
-            'venue' => ['required', 'string'],
-            'start_date' => ['required', 'date'],
-            'end_date' => ['required', 'date'],
-            'registration_start_date' => ['required', 'date'],
-            'registration_end_date' => ['required', 'date'],
-            'banner' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'venue_picture' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'partner_picture' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
-        ]);
-
-        $validator->after(function ($validator) use ($request) {
-            $start = Carbon::parse($request->start_date);
-            $end = Carbon::parse($request->end_date);
-            $regStart = Carbon::parse($request->registration_start_date);
-            $regEnd = Carbon::parse($request->registration_end_date);
-
-            if ($start->isAfter($end)) {
-                $validator->errors()->add('start_date', 'The start date must not be after the end date.');
-            }
-
-            if ($regStart->isAfter($regEnd)) {
-                $validator->errors()->add('registration_start_date', 'The registration start date must not be after the registration end date.');
-            }
-
-            if ($regEnd->isAfter($start)) {
-                $validator->errors()->add('registration_end_date', 'Registration must end before the event starts.');
-            }
-            if ($start->equalTo($end)) {
-                $validator->errors()->add('end_date', 'The end date must be after the start date.');
-            }
-        });
-
-        $validator->validate();
-
-        $data = $validator->validated();
+        $data = $request->validated();
         if (isset($data['banner']) && $data['banner']) {
             $data['banner'] = $request->file('banner')
                 ->store('banners', 'public');
