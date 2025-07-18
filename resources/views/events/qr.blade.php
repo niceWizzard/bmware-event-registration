@@ -6,7 +6,6 @@
         <br>
         You can show this to the attendee on the day of the event.
     </p>
-    <img src="" alt="" id="image">
     <!-- This will be your "Download QR Code" link -->
     <div class="flex gap-2">
         <a
