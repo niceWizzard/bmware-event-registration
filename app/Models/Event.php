@@ -36,9 +36,6 @@ class Event extends Model
         'end_date' => 'datetime',
     ];
 
-    protected $appends = [
-        'banner_url',
-    ];
 
     public function registrations(): HasMany
     {
