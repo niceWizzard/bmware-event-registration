@@ -48,6 +48,7 @@
                                         @csrf
                                         <button type="submit" class="btn btn-error"
                                                 x-text="hasConfirmed ? 'Delete now' : 'Delete'"
+                                                @click.outside="hasConfirmed = false;"
                                         >
                                             Delete
                                         </button>

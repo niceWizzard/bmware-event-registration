@@ -20,6 +20,7 @@
                     @csrf
                     <button class="btn btn-error w-full"
                             x-text="clicked ? 'Delete Now?' : 'Delete'"
+                            @click.outside="clicked = false;"
                     >Delete Event
                     </button>
                 </form>
