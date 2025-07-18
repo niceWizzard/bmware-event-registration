@@ -14,7 +14,7 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::withCount('registrations')->get();
+        $events = Event::withCount('registrations')->paginate(12);
 
         return view('events.index', compact('events'));
     }

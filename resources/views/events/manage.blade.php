@@ -2,9 +2,15 @@
     <section class="p-8 container mx-auto w-full flex flex-col gap-4">
         <div class="flex justify-between">
             <h2 class="text-xl font-medium">Event Information</h2>
-            <a href="{{route('events.download', $event->short_name)}}" class="btn btn-primary">
-                Download Data
-            </a>
+            <div class="flex justify-start gap-2">
+                <a href="{{route('events.edit', $event->short_name)}}" class="btn btn-secondary btn-outline">
+                    <x-fas-edit class="size-4"/>
+                    Edit Event
+                </a>
+                <a href="{{route('events.download', $event->short_name)}}" class="btn btn-primary">
+                    Download Data
+                </a>
+            </div>
         </div>
         <div class="flex gap-2 w-full ">
             <div class="flex w-md  flex-col">
