@@ -57,16 +57,20 @@ class Event extends Model
     public function status(): Attribute
     {
         return Attribute::get(function (): string {
-            $eventOnGoing = $this->start_date->isAfter(now());
-
             $eventStatus = 'Pending';
-            if ($eventOnGoing && $this->end_date->isBefore(now())) {
+            if ($this->isOngoing()) {
                 $eventStatus = 'On-Going';
-            } else {
+            } elseif ($this->end_date->isBefore(now())) {
                 $eventStatus = 'Ended';
             }
             return $eventStatus;
         });
     }
 
+    public function isOngoing(): bool
+    {
+        $now = now();
+        return $this->start_date->lte($now) &&
+            $this->end_date->gte($now);
+    }
 }
