@@ -3,6 +3,7 @@
 use App\Models\Event;
 
 Route::prefix('/admin')
+    ->middleware('auth')
     ->name('admin')
     ->group(function () {
         Route::get('/', static function () {
