@@ -10,6 +10,19 @@
                 <a href="{{route('events.download', $event->short_name)}}" class="btn btn-primary">
                     Download Data
                 </a>
+                <form
+                    action="{{route('events.delete', $event->short_name)}}"
+                    method="post"
+                    x-data="{clicked: false}"
+                    @submit.prevent="if(clicked) $el.submit(); clicked = true;"
+                    class="w-full"
+                >
+                    @csrf
+                    <button class="btn btn-error w-full"
+                            x-text="clicked ? 'Delete Now?' : 'Delete'"
+                    >Delete Event
+                    </button>
+                </form>
             </div>
         </div>
         <div class="flex gap-2 w-full max-md:flex-col ">

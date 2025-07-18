@@ -98,6 +98,13 @@ class EventController extends Controller
         return $existingPath;
     }
 
+    public function delete(string $shortName)
+    {
+        $event = Event::whereShortName($shortName)->firstOrFail();
+        $event->delete();
+        return Redirect::route('admin.dashboard');
+    }
+
     public function store(StoreOrUpdateEventRequest $request)
     {
         $data = $request->validated();
@@ -130,4 +137,5 @@ class EventController extends Controller
     {
         return view('events.create');
     }
+
 }

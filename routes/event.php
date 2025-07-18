@@ -24,5 +24,7 @@ Route::prefix('events')
         Route::post('/{short_name}', [EventRegistrationController::class, 'store'])->name('.register');
         Route::post('/{short_name}/clear', [EventRegistrationController::class, 'clear'])->name('.clear');
         Route::get('/{short_name}/{token}', [EventRegistrationController::class, 'showQr'])->name('.show-qr');
+
+        Route::post('/{short_name}/delete', 'delete')->name('.delete');
         Route::get('/', 'index')->name('.index');
     });
