@@ -9,7 +9,7 @@ Route::prefix('/admin')
             $events = Event::withCount('registrations')
                 ->orderByDesc('start_date')      // latest start_date first
                 ->orderBy('updated_at')      // if same start_date, latest created first
-                ->get();
+                ->paginate(12);
 
             return view('admin.dashboard', [
                 'events' => $events,

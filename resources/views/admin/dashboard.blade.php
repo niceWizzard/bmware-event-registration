@@ -14,5 +14,6 @@
                 <x-event-card :event="$event"/>
             @endforeach
         </div>
+        {{ $events->links('pagination::default') }}
     </section>
 </x-auth-layout>
