@@ -1,8 +1,8 @@
 <x-auth-layout title="Manage">
     <section class="p-8 container mx-auto w-full flex flex-col gap-4">
-        <div class="flex justify-between">
+        <div class="flex justify-between max-md:flex-col gap-4">
             <h2 class="text-xl font-medium">Event Information</h2>
-            <div class="flex justify-start gap-2">
+            <div class="flex justify-center max-md:flex-col gap-2">
                 <a href="{{route('events.edit', $event->short_name)}}" class="btn btn-secondary btn-outline">
                     <x-fas-edit class="size-4"/>
                     Edit Event
@@ -12,8 +12,8 @@
                 </a>
             </div>
         </div>
-        <div class="flex gap-2 w-full ">
-            <div class="flex w-md  flex-col">
+        <div class="flex gap-2 w-full max-md:flex-col ">
+            <div class="flex max-w-md max-md:max-w-none flex-col">
                 <div class="card bg-secondary text-primary-content w-full rounded-b-none">
                     <div class="card-body items-center">
                         <h3 class="card-title text-xl   ">
@@ -51,8 +51,9 @@
                 </div>
             </div>
         </div>
+
         <h2 class="text-xl font-medium">Event Statistics</h2>
-        <div class="flex flex-col w-sm">
+        <div class="flex flex-col w-sm max-md:w-full">
             <div class="card bg-info text-info-content rounded-b-none">
                 <div class="card-body items-center">
                     <h3 class="card-title">Registrations by Gender</h3>

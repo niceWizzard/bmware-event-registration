@@ -57,3 +57,16 @@ html {
 .description > ol > li {
     @apply my-1;
 }
+
+
+.badge-pending {
+    @apply bg-secondary;
+}
+
+.badge-ongoing {
+    @apply bg-success;
+}
+
+.badge-ended {
+    @apply bg-warning;
+}
