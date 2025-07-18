@@ -26,7 +26,7 @@
     <div class="flex flex-col" x-show="!clearFile">
         <fieldset class="fieldset w-full">
             <legend class="fieldset-legend">{{$label}}</legend>
-            <input type="file" name="{{$name}}" class="file-input w-full"/>
+            <input type="file" accept="image/*" name="{{$name}}" class="file-input w-full"/>
             @if($tip)
                 <label class="label">{{$tip}}</label>
             @endif
