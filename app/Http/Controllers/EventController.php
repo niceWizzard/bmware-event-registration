@@ -49,7 +49,7 @@ class EventController extends Controller
             'end_date' => ['required', 'date'],
             'registration_start_date' => ['required', 'date'],
             'registration_end_date' => ['required', 'date'],
-            'event_banner' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'banner' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
             'clear_banner' => ['sometimes'],
         ]);
 
@@ -78,10 +78,13 @@ class EventController extends Controller
         $validator->validate();
 
         $data = $validator->validated();
-        if ($request->hasFile('event_banner') && !$request->boolean('clear_banner')) {
-            if ($event->banner && Storage::disk('public')->exists($event->banner)) {
-                Storage::disk('public')->delete($event->banner);
-            }
+        $data['banner'] = $this->updateFile(
+            $request,
+            $event->banner,
+            'banner',
+            'clear_banner',
+            'banners',
+        );
 
             $data['banner'] = $request->file('event_banner')->store('banners', 'public');
         } else if ($request->boolean('clear_banner')) {
@@ -94,6 +97,34 @@ class EventController extends Controller
 
         $event->update($data);
         return Redirect::route('events.show', $event->short_name);
+    }
+
+    public function updateFile(
+        Request $request,
+        ?string $existingPath,
+        string  $fileName,
+        string  $clearName,
+        string  $fileLocation
+    ): ?string
+    {
+        $shouldClear = $request->boolean($clearName);
+        $hasNewFile = $request->hasFile($fileName);
+
+        if ($shouldClear) {
+            if ($existingPath && Storage::disk('public')->exists($existingPath)) {
+                Storage::disk('public')->delete($existingPath);
+            }
+            return null;
+        }
+        // If a new file is uploaded (and not marked for clearing), replace it
+        if ($hasNewFile) {
+            if ($existingPath && Storage::disk('public')->exists($existingPath)) {
+                Storage::disk('public')->delete($existingPath);
+            }
+            return Storage::disk('public')->put($fileLocation, $request->file($fileName));
+        }
+
+        return $existingPath;
     }
 
     public function store(Request $request)
