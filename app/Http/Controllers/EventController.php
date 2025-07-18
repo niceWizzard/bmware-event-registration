@@ -13,7 +13,10 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::withCount('registrations')->paginate(12);
+        $events = Event::withCount('registrations')
+            ->orderByDesc('start_date')      // latest start_date first
+            ->orderBy('updated_at')      // if same start_date, latest created first
+            ->paginate(12);
 
         return view('events.index', compact('events'));
     }
@@ -68,10 +71,11 @@ class EventController extends Controller
     public function updateFile(
         Request $request,
         ?string $existingPath,
-        string $fileName,
-        string $clearName,
-        string $fileLocation
-    ): ?string {
+        string  $fileName,
+        string  $clearName,
+        string  $fileLocation
+    ): ?string
+    {
         $shouldClear = $request->boolean($clearName);
         $hasNewFile = $request->hasFile($fileName);
 
