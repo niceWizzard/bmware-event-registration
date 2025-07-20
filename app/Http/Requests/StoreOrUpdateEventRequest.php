@@ -12,7 +12,7 @@ class StoreOrUpdateEventRequest extends FormRequest
 
     public function authorize(): bool
     {
-        return true; // Set to false if you want to restrict access
+        return true;
     }
 
     public function rules(): array
@@ -24,15 +24,15 @@ class StoreOrUpdateEventRequest extends FormRequest
         }
 
         return [
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:255' ,'regex:/^[A-Za-z0-9\s\-\!\?\.]+$/',],
             'short_name' => [
                 'required', 'string', 'max:72',
                 Rule::unique('events', 'short_name')->ignore($event?->id),
             ],
-            'partner' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:255'],
-            'body' => ['required', 'string'],
-            'venue' => ['required', 'string'],
+            'partner' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z0-9\s\-\!\?\.]+$/'],
+            'description' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z0-9\s\-\!\?\.]+$/',],
+            'body' => ['required', 'string',],
+            'venue' => ['required', 'string', 'regex:/^[A-Za-z0-9\s\-\!\?\.]+$/'],
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date'],
             'registration_start_date' => ['required', 'date'],
@@ -42,6 +42,16 @@ class StoreOrUpdateEventRequest extends FormRequest
             'partner_picture' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'title.regex' => 'Only special characters (!, @, #) are allowed.',
+            'description.regex' => 'Only special characters (!, @, #) are allowed.',
+            // Add other custom messages as needed
+        ];
+    }
+
 
     public function withValidator($validator): void
     {
