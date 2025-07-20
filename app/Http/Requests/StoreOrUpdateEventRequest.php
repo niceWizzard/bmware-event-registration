@@ -10,6 +10,8 @@ use Illuminate\Validation\Rule;
 class StoreOrUpdateEventRequest extends FormRequest
 {
 
+    const REGEX_SHORT_STRING = 'regex:/^[A-Za-z0-9\s\-\!\?\.\,\']+$/';
+
     public function authorize(): bool
     {
         return true;
@@ -24,16 +26,17 @@ class StoreOrUpdateEventRequest extends FormRequest
         }
 
         return [
-            'title' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z0-9\s\-\!\?\.]+$/',],
+            'title' => ['required', 'string', 'max:255', self::REGEX_SHORT_STRING,],
+            'visibility' => ['required', Rule::in(['public', 'private'])],
             'short_name' => [
                 'required', 'string', 'max:72',
                 'regex:/^[A-Za-z0-9\s!@#()]+$/',
                 Rule::unique('events', 'short_name')->ignore($event?->id),
             ],
-            'partner' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z0-9\s\-\!\?\.]+$/'],
-            'description' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z0-9\s\-\!\?\.]+$/',],
+            'partner' => ['required', 'string', 'max:255', self::REGEX_SHORT_STRING],
+            'description' => ['required', 'string', 'max:255', self::REGEX_SHORT_STRING,],
             'body' => ['required', 'string',],
-            'venue' => ['required', 'string', 'regex:/^[A-Za-z0-9\s\-\!\?\.]+$/'],
+            'venue' => ['required', 'string', self::REGEX_SHORT_STRING],
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date'],
             'registration_start_date' => ['required', 'date'],
@@ -48,7 +51,7 @@ class StoreOrUpdateEventRequest extends FormRequest
     {
         return [
             'short_name.regex' => 'The short name may only contain letters, numbers, hyphens, and underscores.',
-            '*.regex' => 'Only special characters (!, @, #) are allowed.',
+            '*.regex' => 'Only special characters allowed are (!, @, #)',
             'venue_picture.max' => 'Maximum of 2 MB pictures.',
             'banner.max' => 'Maximum of 2 MB pictures.',
             'partner_picture.max' => 'Maximum of 2 MB pictures.',

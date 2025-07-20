@@ -12,12 +12,16 @@
         const html = window.quill.root.innerHTML;
         input.value = html === '<p><br></p>' ? '' : html;
     }
+    function setVisibilityValue(value) {
+        const input = document.querySelector('input[name="visibility"]');
+        input.value = value ? 'public' : 'private';
+    }
 </script>
 
 <form
-    x-data="{ isLoading: false }"
+    x-data="{ isLoading: false, isPublic: @json($event?->is_public ?? false)}"
     class="{{ twMerge(['pt-4 flex flex-col gap-2 w-full', $class]) }}"
-    @submit.prevent="isLoading = true; setDescriptionValue(); $el.submit()"
+    @submit.prevent="isLoading = true; setDescriptionValue(); setVisibilityValue(isPublic); $el.submit()"
     action="{{ $action }}"
     method="{{ $method }}"
     enctype="multipart/form-data"
@@ -29,8 +33,30 @@
     @if(strtolower($method) !== 'post')
         @method($method)
     @endif
-
+    <input name="visibility" type="hidden" />
+    <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-64 border p-4"
+    >
+        <legend class="fieldset-legend">Event Visibility</legend>
+        <label class="label">
+            <input type="checkbox" name="isPublic" checked="checked" class="toggle" x-model="isPublic" />
+            Event <span x-text="isPublic ? 'Public' : 'Private'"></span>
+        </label>
+        <p class="text-sm" >
+            <span x-show="!isPublic">
+                Private events can only be seen by admins.
+            </span>
+            <span x-show="isPublic">
+                Public events can be seen by everyone.
+            </span>
+        </p>
+        @if($errors->has('visibility'))
+            <small class="text-error">
+                {{$errors->first('visibility')}}
+            </small>
+        @endif
+    </fieldset>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+
         <x-form-input
             name="title"
             :value="old('title', $event?->title)"
