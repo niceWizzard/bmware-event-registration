@@ -24,9 +24,10 @@ class StoreOrUpdateEventRequest extends FormRequest
         }
 
         return [
-            'title' => ['required', 'string', 'max:255' ,'regex:/^[A-Za-z0-9\s\-\!\?\.]+$/',],
+            'title' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z0-9\s\-\!\?\.]+$/',],
             'short_name' => [
                 'required', 'string', 'max:72',
+                'regex:/^[A-Za-z0-9\s!@#()]+$/',
                 Rule::unique('events', 'short_name')->ignore($event?->id),
             ],
             'partner' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z0-9\s\-\!\?\.]+$/'],
@@ -37,18 +38,20 @@ class StoreOrUpdateEventRequest extends FormRequest
             'end_date' => ['required', 'date'],
             'registration_start_date' => ['required', 'date'],
             'registration_end_date' => ['required', 'date'],
-            'banner' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'venue_picture' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'partner_picture' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'banner' => ['nullable', Rule::imageFile(), 'max:2048'],
+            'venue_picture' => ['nullable', Rule::imageFile(), 'max:2048'],
+            'partner_picture' => ['nullable', Rule::imageFile(), 'max:2048'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'title.regex' => 'Only special characters (!, @, #) are allowed.',
-            'description.regex' => 'Only special characters (!, @, #) are allowed.',
-            // Add other custom messages as needed
+            'short_name.regex' => 'The short name may only contain letters, numbers, hyphens, and underscores.',
+            '*.regex' => 'Only special characters (!, @, #) are allowed.',
+            'venue_picture.max' => 'Maximum of 2 MB pictures.',
+            'banner.max' => 'Maximum of 2 MB pictures.',
+            'partner_picture.max' => 'Maximum of 2 MB pictures.',
         ];
     }
 
