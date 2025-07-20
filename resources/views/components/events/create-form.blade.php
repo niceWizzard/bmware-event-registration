@@ -51,11 +51,7 @@
                 <x-fas-tag class="size-4"/>
             </x-slot:icon>
         </x-form-input>
-        <x-file-input
-            name="banner"
-            label="Event Banner"
-            :image-url="$event?->banner"
-        />
+
         <x-form-input
             name="partner"
             container-class="w-full"
@@ -65,11 +61,7 @@
                 <x-akar-people-group class="size-4"/>
             </x-slot:icon>
         </x-form-input>
-        <x-file-input
-            name="partner_picture"
-            label="Partner Picture"
-            :image-url="$event?->partner_picture"
-        />
+
         <x-form-input
             name="venue"
             container-class="w-full"
@@ -80,11 +72,7 @@
                 <x-akar-location class="size-4"/>
             </x-slot:icon>
         </x-form-input>
-        <x-file-input
-            name="venue_picture"
-            label="Picture of Venue"
-            :image-url="$event?->venue_picture"
-        />
+
     </div>
 
     <div class="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-2">
@@ -128,6 +116,24 @@
                 <x-akar-calendar class="size-4"/>
             </x-slot:icon>
         </x-form-input>
+    </div>
+
+    <div class="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-2">
+        <x-file-input
+            name="banner"
+            label="Event Banner"
+            :image-url="$event?->banner"
+        />
+        <x-file-input
+            name="partner_picture"
+            label="Partner Picture"
+            :image-url="$event?->partner_picture"
+        />
+        <x-file-input
+            name="venue_picture"
+            label="Picture of Venue"
+            :image-url="$event?->venue_picture"
+        />
     </div>
 
     <label for="description" class="text-lg font-medium">
