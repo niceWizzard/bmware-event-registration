@@ -2,7 +2,7 @@
     use \Illuminate\Support\Str;
 @endphp
 
-<x-header-layout title="Events" :link-to="route('events.index')">
+<x-auth-layout>
     <section class="p-8 gap-2 container mx-auto flex flex-col">
         @auth
             <div class="flex justify-end w-full">
@@ -24,4 +24,4 @@
             window.transformDataTime();
         });
     </script>
-</x-header-layout>
+</x-auth-layout>
