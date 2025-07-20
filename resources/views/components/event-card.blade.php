@@ -1,5 +1,7 @@
 @php
-    $badgeClass = 'badge-' . \Illuminate\Support\Str::lower($event->status);
+    use Illuminate\Support\Str;
+    $badgeClass = 'badge-' . Str::lower($event->status);
+
 @endphp
 
 <div class="card card-border w-md max-md:w-full">
@@ -14,6 +16,7 @@
             Created at:
             <span data-time="true">{{ $event->created_at?->toString() }}</span>
         </p>
+        <p>{{Str::limit(Str::trim($event->description), 48)}}</p>
         <div class="card-actions justify-end max-md:items-start items-center max-md max-md:flex-col">
             <div class="flex-1">
                 <span class="text-sm font-medium text-gray-700">
