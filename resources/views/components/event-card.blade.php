@@ -1,7 +1,6 @@
 @php
     use Illuminate\Support\Str;
     $badgeClass = 'badge-' . Str::lower($event->status);
-
 @endphp
 
 <div class="card card-border w-md max-md:w-full">

@@ -14,17 +14,73 @@ class EventController extends Controller
 {
     public function index()
     {
-        $query = Event::withCount('registrations')
-            ->orderByDesc('start_date')
-            ->orderBy('updated_at');
+        $sortField = request('sort', 'start_date'); // default to start_date
+        $sortOrder = request('order', 'desc');      // default to descending
+        $visibility = request('visibility');
+        $status = request('status'); // Expecting: Pending, On-Going, Ended
 
-        if(!Auth::check()) {
+
+
+
+        // Allowed fields that map directly to DB or computed values
+        $allowedFields = [
+            'start_date',
+            'registration_start_date',
+            'registrations',
+            'updated_at',
+            'created_at',
+        ];
+
+        $allowedOrders = ['asc', 'desc'];
+
+        // Validate
+        if (!in_array($sortField, $allowedFields)) {
+            $sortField = 'start_date';
+        }
+
+        if (!in_array($sortOrder, $allowedOrders)) {
+            $sortOrder = 'desc';
+        }
+
+        $query = Event::withCount('registrations');
+
+        if (in_array($status, ['Pending', 'On-Going', 'Ended'])) {
+            $now = now();
+
+            if ($status === 'Pending') {
+                $query->where('start_date', '>', $now);
+            } elseif ($status === 'On-Going') {
+                $query->where('start_date', '<=', $now)
+                    ->where('end_date', '>=', $now);
+            } elseif ($status === 'Ended') {
+                $query->where('end_date', '<', $now);
+            }
+        }
+
+        if ($sortField === 'registrations') {
+            $query->orderBy('registrations_count', $sortOrder);
+        } else {
+            $query->orderBy($sortField, $sortOrder);
+        }
+
+        // Secondary sort (e.g., updated_at desc)
+        $query->orderBy('updated_at', 'desc');
+
+        if ($visibility) {
+            $query->where('visibility', $visibility);
+        } elseif (!Auth::check()) {
+            // For guests: default to only public
             $query->where('visibility', 'public');
         }
-        $events = $query->paginate(12);;
+
+
+
+        $events = $query->paginate(12)->withQueryString();
 
         return view('events.index', compact('events'));
     }
+
+
 
     public function show(string $shortName)
     {
