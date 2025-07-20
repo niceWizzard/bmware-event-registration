@@ -22,6 +22,7 @@ class EventFactory extends Factory
         $shortName = $this->faker->unique()->word();
         return [
             'title' => $title,
+            'visibility' => $this->faker->randomElement(['public', 'private']),
             'short_name' => $shortName,
             'description' => $this->faker->realText('255'),
             'body' => $this->generateRandomHtmlSnippet(),

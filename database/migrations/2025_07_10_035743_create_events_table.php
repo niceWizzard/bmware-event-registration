@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('events', static function (Blueprint $table) {
             $table->id();
             $table->string('title', 256);
+            $table->enum('visibility', ['public', 'private'])->default('private');
             $table->string('short_name', 72)->unique();
             $table->string('banner')->nullable();
             $table->string('description', 256);

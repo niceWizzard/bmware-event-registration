@@ -26,6 +26,7 @@ class Event extends Model
         'venue_picture',
         'partner_picture',
         'body',
+        'visibility',
     ];
 
     protected $hidden = [
@@ -65,6 +66,17 @@ class Event extends Model
                 $eventStatus = 'Ended';
             }
             return $eventStatus;
+        });
+    }
+    public function isPublic(): Attribute {
+        return Attribute::get(function (): bool {
+            return $this->visibility === 'public';
+        });
+    }
+
+    public function isPrivate() : Attribute {
+        return Attribute::get(function (): bool {
+            return $this->visibility === 'private';
         });
     }
 
