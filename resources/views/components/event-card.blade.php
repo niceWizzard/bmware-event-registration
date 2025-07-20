@@ -6,10 +6,19 @@
 
 <div class="card card-border w-md max-md:w-full">
     <div class="card-body">
-        <h3 class="card-title inline-flex items-start max-md:flex-col">
-            <div class="badge {{twMerge([' badge-sm', $badgeClass])}} ">
+        <div class="flex gap-2">
+            @if($event->is_private)
+                <span class="badge badge-accent badge-sm">
+                    Private
+                </span>
+            @endif
+            <span class="badge  {{twMerge([' badge-sm', $badgeClass])}} ">
                 {{$event->status}}
-            </div>
+            </span>
+
+        </div>
+        <h3 class="card-title inline-flex items-start max-md:flex-col">
+
             {{Str::limit($event->title, 64)}}
         </h3>
         <p class="text-sm font-light" >
