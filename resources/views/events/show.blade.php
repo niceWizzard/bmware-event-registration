@@ -3,19 +3,19 @@
     $registrationCookie = Cookie::get('event_'.$event->id);
 @endphp
 <x-header-layout title="Event" link-to="{{route('home')}}">
-    @if($event->is_private)
-        <div class="flex w-full sticky top-0 bg-secondary text-secondary-content p-1 gap-2 justify-center items-center">
-            <p class="text-center">This is a private event!</p>
-            <form action="{{route('events.as-public', $event->short_name)}}"
-                method="POST"
-            >
-                @method('PATCH')
-                @csrf
-                <button class="btn btn-accent btn-sm">Make public</button>
-            </form>
-        </div>
-    @endif
     @auth
+        @if($event->is_private)
+            <div class="flex w-full sticky top-0 bg-secondary text-secondary-content p-1 gap-2 justify-center items-center">
+                <p class="text-center">This is a private event!</p>
+                <form action="{{route('events.as-public', $event->short_name)}}"
+                      method="POST"
+                >
+                    @method('PATCH')
+                    @csrf
+                    <button class="btn btn-accent btn-sm">Make public</button>
+                </form>
+            </div>
+        @endif
         <x-slot:headerActions>
             <a class="hover:underline" href="{{route('events.edit', $event->short_name)}}">Edit</a>
             <a class="hover:underline" href="{{route('events.manage', $event->short_name)}}">Manage</a>
