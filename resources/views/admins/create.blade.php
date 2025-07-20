@@ -1,5 +1,18 @@
+@php
+    $breadcrumbs = [
+        [
+            'link' => route('admin.index'),
+            'text' => 'Admins',
+        ],
+        [
+            'link' => route('admin.create'),
+            'text' => "Create"
+        ]
+    ];
+@endphp
 <x-auth-layout title="Create Admin">
     <section class="container mx-auto p-8">
+        <x-breadcrumb :breadcrumbs="$breadcrumbs" class="text-lg font-medium" />
         <form class="max-w-lg mx-auto flex flex-col gap-2"
               action="{{route('admin.store')}}"
               x-data="{

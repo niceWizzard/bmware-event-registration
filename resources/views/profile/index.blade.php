@@ -1,5 +1,17 @@
+@php
+    $breadcrumbs = [
+        [
+            'link' => route('events.index'),
+            'text' => 'Home',
+        ],
+        [
+            'text' => 'Profile',
+        ],
+    ];
+@endphp
 <x-auth-layout title="Profile">
     <section class="container mx-auto flex flex-col gap-4 p-8">
+        <x-breadcrumb :breadcrumbs="$breadcrumbs" class="text-lg font-medium" />
         <form action="{{route('profile.info')}}"
               method="POST"
               class="border border-base-200 rounded-md p-4 max-w-lg flex flex-col gap-2 w-full">

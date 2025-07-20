@@ -1,5 +1,17 @@
+@php
+    $breadcrumbs = [
+            [
+                'link' => route('events.index'),
+                'text' => 'Events',
+            ],
+            [
+                'text' => 'Create',
+            ],
+    ];
+@endphp
 <x-auth-layout title="Create Event">
     <section class="container mx-auto w-full p-8 flex flex-col items-center relative">
+        <x-breadcrumb :breadcrumbs="$breadcrumbs" class="text-lg font-medium self-start" />
         <h2 class="text-lg font-bold">
             Create an Event
         </h2>

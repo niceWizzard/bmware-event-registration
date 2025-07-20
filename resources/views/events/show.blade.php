@@ -1,6 +1,16 @@
 @php
     use \Illuminate\Support\Facades\Cookie;
     $registrationCookie = Cookie::get('event_'.$event->id);
+
+    $breadcrumbs = [
+        [
+            'link' => route('events.index'),
+            'text' => 'Events',
+        ],
+        [
+            'text' => 'Show',
+        ],
+    ];
 @endphp
 <x-header-layout title="Event" link-to="{{route('home')}}">
     @auth
@@ -23,6 +33,9 @@
     @endauth
     <section
         class="container mx-auto my-6 p-6 space-y-6  rounded-radius text-on-surface ">
+        @auth
+            <x-breadcrumb :breadcrumbs="$breadcrumbs" class="text-lg font-medium" />
+        @endauth
         {{-- Banner --}}
         @if ($event->banner)
             <div class="">
