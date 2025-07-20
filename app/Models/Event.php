@@ -25,6 +25,7 @@ class Event extends Model
         'registration_end_date',
         'venue_picture',
         'partner_picture',
+        'body',
     ];
 
     protected $hidden = [

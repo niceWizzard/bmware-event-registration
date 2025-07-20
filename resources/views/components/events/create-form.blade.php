@@ -8,7 +8,7 @@
 
 <script>
     function setDescriptionValue() {
-        const input = document.querySelector('input[name="description"]');
+        const input = document.querySelector('input[name="body"]');
         const html = window.quill.root.innerHTML;
         input.value = html === '<p><br></p>' ? '' : html;
     }
@@ -40,6 +40,12 @@
                 <x-akar-edit class="size-4"/>
             </x-slot:icon>
         </x-form-input>
+        <x-form-input
+            name="description"
+            :value="old('description', $event?->title)"
+            container-class="w-full "
+            tip="What this event is about in short."
+        />
 
         <x-form-input
             name="short_name"
@@ -139,9 +145,10 @@
     <label for="description" class="text-lg font-medium">
         Body
     </label>
-    <input type="hidden" id="description" name="description"/>
+    <input type="hidden" id="body" name="body"/>
+    {{$event?->body}}
     <x-quill-editor>
-        {!! old('description', $event?->description) !!}
+        {!! old('body', $event?->body) !!}
     </x-quill-editor>
 
     <div class="flex max-sm:flex-col gap-2 justify-end">
@@ -152,7 +159,5 @@
             {{ $event ? 'Update' : 'Create' }}
         </button>
     </div>
-
-
     {{ $slot }}
 </form>

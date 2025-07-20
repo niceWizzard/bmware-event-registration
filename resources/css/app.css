@@ -18,43 +18,43 @@ html {
     @apply scroll-smooth;
 }
 
-.description > h1, h2, h3, h4, h5, h6 {
+.body > h1, h2, h3, h4, h5, h6 {
     @apply font-bold leading-tight;
 }
 
-.description > h1 {
+.body > h1 {
     @apply text-4xl;
 }
 
-.description > h2 {
+.body > h2 {
     @apply text-3xl;
 }
 
-.description > h3 {
+.body > h3 {
     @apply text-2xl;
 }
 
-.description > h4 {
+.body > h4 {
     @apply text-xl;
 }
 
-.description > h5 {
+.body > h5 {
     @apply text-lg;
 }
 
-.description > p > a {
+.body > p > a {
     @apply underline text-info;
 }
 
-.description > ol > li[data-list='bullet'] {
+.body > ol > li[data-list='bullet'] {
     @apply list-disc list-inside ml-4;
 }
 
-.description > ol > li[data-list='ordered'] {
+.body > ol > li[data-list='ordered'] {
     @apply list-decimal list-inside ml-4;
 }
 
-.description > ol > li {
+.body > ol > li {
     @apply my-1;
 }
 

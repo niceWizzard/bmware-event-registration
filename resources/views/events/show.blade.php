@@ -28,10 +28,10 @@
         </div>
 
         {{-- Description --}}
-        @if ($event->description)
-            <div class="description">
+        @if ($event->body)
+            <div class="body">
                 <br>
-                {!! $event->description !!}
+                {!! $event->body !!}
             </div>
         @endif
 

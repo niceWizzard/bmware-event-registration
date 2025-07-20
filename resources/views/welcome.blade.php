@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Str; @endphp
 <x-header-layout title="" link-to="{{route('home')}}">
     <x-slot:headerActions>
         @auth
@@ -36,13 +37,15 @@
                         <a href="{{route('events.show', $event->short_name)}}" class="card shadow-sm bg-white">
                             <div class="card-body">
                                 <h3 class="card-title">
-                                    {{\Illuminate\Support\Str::limit($event->title, 36)}}
+                                    {{Str::limit($event->title, 36)}}
                                 </h3>
                                 <span class="text-xs block mt-2">
                                     {{$event->start_date->format('M d - ')}}
                                     {{$event->end_date->format('d, Y')}}
-
                                 </span>
+                                <p class="text-base font-light">
+                                    {{Str::limit($event->description, 72)}}
+                                </p>
                             </div>
                         </a>
                     @endforeach

@@ -46,8 +46,8 @@
 <div id="editor" class="w-full min-h-48">
     {{$slot}}
 </div>
-@if($errors->has('description'))
+@if($errors->has('body'))
     <p class="text-error">
-        {{$errors->first('description')}}
+        {{$errors->first('body')}}
     </p>
 @endif
