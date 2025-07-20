@@ -2,7 +2,7 @@
     use \Illuminate\Support\Str;
 @endphp
 
-<x-header-layout title="Events">
+<x-header-layout title="Events" :link-to="route('events.index')">
     <section class="p-8 w-full gap-6 flex flex-col container mx-auto">
         <div class="flex flex-wrap gap-4">
             @foreach($events as $event)
