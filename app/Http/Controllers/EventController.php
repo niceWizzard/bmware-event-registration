@@ -6,6 +6,7 @@ use App\Http\Requests\StoreOrUpdateEventRequest;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,17 +14,26 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::withCount('registrations')
-            ->orderByDesc('start_date')      // latest start_date first
-            ->orderBy('updated_at')      // if same start_date, latest created first
-            ->paginate(12);
+        $query = Event::withCount('registrations')
+            ->orderByDesc('start_date')
+            ->orderBy('updated_at');
+
+        if(!Auth::check()) {
+            $query->where('visibility', 'public');
+        }
+        $events = $query->paginate(12);;
 
         return view('events.index', compact('events'));
     }
 
     public function show(string $shortName)
     {
-        $event = Event::whereShortName($shortName)->firstOrFail();
+        $query = Event::whereShortName($shortName);
+
+        if (!Auth::check()) {
+            $query->where('visibility', 'public');
+        }
+        $event = $query->firstOrFail();
 
         return view('events.show', compact('event'));
     }

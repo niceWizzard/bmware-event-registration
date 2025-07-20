@@ -15,7 +15,9 @@ class EventRegistrationController extends Controller
 {
     public function store(Request $request, string $shortName): RedirectResponse
     {
-        $event = Event::whereShortName($shortName)->firstOrFail();
+        $event = Event::whereShortName($shortName)
+            ->where('visibility', 'public')
+            ->firstOrFail();
         if (!$event->can_register) {
             return Redirect::back()->with('error', 'Event registration already ended!');
         }
