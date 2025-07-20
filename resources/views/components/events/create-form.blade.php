@@ -146,7 +146,6 @@
         Body
     </label>
     <input type="hidden" id="body" name="body"/>
-    {{$event?->body}}
     <x-quill-editor>
         {!! old('body', $event?->body) !!}
     </x-quill-editor>
