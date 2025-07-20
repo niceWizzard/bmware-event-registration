@@ -30,7 +30,7 @@ class RoutesTest extends TestCase
     {
 
         $this->actingAs(User::factory()->create())
-            ->get(route('admin.dashboard'))
+            ->get(route('events.index'))
             ->assertOk();
     }
 

@@ -2,8 +2,8 @@
 <x-header-layout title="" link-to="{{route('home')}}">
     <x-slot:headerActions>
         @auth
-            <a href="{{route('admin.dashboard')}}">
-                Dashboard
+            <a href="{{route('events.index')}}">
+                Events
             </a>
         @endauth
         @guest

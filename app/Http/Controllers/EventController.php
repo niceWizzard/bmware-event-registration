@@ -102,7 +102,7 @@ class EventController extends Controller
     {
         $event = Event::whereShortName($shortName)->firstOrFail();
         $event->delete();
-        return Redirect::route('admin.dashboard');
+        return Redirect::route('events.index');
     }
 
     public function store(StoreOrUpdateEventRequest $request)

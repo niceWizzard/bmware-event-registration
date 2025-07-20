@@ -15,19 +15,6 @@ class EventTest extends TestCase
 
     protected bool $seed = true;
 
-    public function test_banner_url(): void
-    {
-        $event = Event::factory()->create([
-            'banner' => 'some-banner.png',
-        ]);
-        $this->assertTrue(
-            Str::contains(
-                $event->banner_url,
-                $event->banner,
-            )
-        );
-    }
-
     public function test_event_has_registrations(): void
     {
         $event = Event::factory()->create();

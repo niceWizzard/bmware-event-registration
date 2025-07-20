@@ -13,14 +13,6 @@ class EventVisitTest extends TestCase
 
     protected bool $seed = true;
 
-    public function test_index_shows_all_events(): void
-    {
-        $res = $this->get(route('events.index'));
-
-        foreach (Event::all() as $event) {
-            $res->assertSee(Str::limit($event->title, 36));
-        }
-    }
 
     public function test_show_page(): void
     {

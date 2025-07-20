@@ -10,7 +10,10 @@
             </div>
             {{Str::limit($event->title, 64)}}
         </h3>
-        <p class="text-sm font-light">{{ $event->created_at?->format('D, h:i A') }}</p>
+        <p class="text-sm font-light" >
+            Created at:
+            <span data-time="true">{{ $event->created_at?->toString() }}</span>
+        </p>
         <div class="card-actions justify-end max-md:items-start items-center max-md max-md:flex-col">
             <div class="flex-1">
                 <span class="text-sm font-medium text-gray-700">
@@ -19,10 +22,12 @@
                 </span>
             </div>
             <div class="flex gap-2 justify-end w-full max-sm:flex-col">
-                <a href="{{route('events.manage', $event->short_name)}}" class="btn max-md:btn-sm">
-                    <x-fas-edit class="size-4"/>
-                    Manage
-                </a>
+                @auth
+                    <a href="{{route('events.manage', $event->short_name)}}" class="btn max-md:btn-sm">
+                        <x-fas-edit class="size-4"/>
+                        Manage
+                    </a>
+                @endauth
                 <a href="{{route('events.show', $event->short_name)}}" class="btn btn-primary max-md:btn-sm">
                     <x-fas-eye class="size-4"/>
                     View
