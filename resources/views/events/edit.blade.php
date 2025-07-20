@@ -1,5 +1,5 @@
 <x-auth-layout title="Edit">
-    <section class="container p-8">
+    <section class="container p-8 mx-auto">
         <x-events.create-form
             :event="$event"
             action="{{route('events.update', $event->short_name)}}"
