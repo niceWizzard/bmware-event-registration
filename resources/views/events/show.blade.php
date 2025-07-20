@@ -6,7 +6,11 @@
     @if($event->is_private)
         <div class="flex w-full sticky top-0 bg-secondary text-secondary-content p-1 gap-2 justify-center items-center">
             <p class="text-center">This is a private event!</p>
-            <form>
+            <form action="{{route('events.as-public', $event->short_name)}}"
+                method="POST"
+            >
+                @method('PATCH')
+                @csrf
                 <button class="btn btn-accent btn-sm">Make public</button>
             </form>
         </div>

@@ -13,6 +13,7 @@ Route::prefix('events')
             Route::post('/create', 'store')->name('.store');
             Route::get('/{short_name}/edit', 'edit')->name('.edit');
             Route::patch('/{short_name}/edit', 'update')->name('.update');
+            Route::patch('/{short_name}/as-public', 'makePublic')->name('.as-public');
 
             Route::controller(EventManageController::class)->group(function () {
                 Route::get('/{short_name}/manage', 'manage')->name('.manage');

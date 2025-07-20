@@ -35,6 +35,13 @@ class EventController extends Controller
         return view('events.edit', compact('event'));
     }
 
+    public function makePublic(string $shortName)
+     {
+         $event = Event::whereShortName($shortName)->firstOrFail();
+         $event->visibility = 'public';
+         $event->save();
+         return Redirect::route('events.show', [$shortName]);
+     }
     public function update(string $shortName, StoreOrUpdateEventRequest $request)
     {
         $event = Event::whereShortName($shortName)->firstOrFail();
