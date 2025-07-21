@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use Illuminate\Support\Arr;
 
 class EventManageController extends Controller
 {
@@ -26,11 +27,15 @@ class EventManageController extends Controller
         $event = Event::whereShortName($shortName)->firstOrFail();
 
         $data = [
-            'event' => $event->toArray(),
+            'event' => Arr::except($event->toArray(), [
+                'body', 'updated_at',
+                'id', 'registration_start_date',
+                'registration_end_date',
+            ]),
         ];
 
         $jsonContent = json_encode($data, JSON_PRETTY_PRINT);
-        $fileName = 'event-' . $event->short_name . '-data.json';
+        $fileName = 'event-'.$event->short_name.'-data.json';
 
         return \Response::make($jsonContent, 200, [
             'Content-Type' => 'application/json',
