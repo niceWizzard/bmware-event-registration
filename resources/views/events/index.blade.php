@@ -80,6 +80,27 @@
                 </button>
             </div>
         </div>
+        <form method="GET" class="mb-4">
+            <div class="flex gap-2">
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ request('search') }}"
+                    placeholder="Search events by title"
+                    class="input input-bordered w-full max-w-xs"
+                />
+
+                <button type="submit" class="btn btn-primary">
+                    Search
+                </button>
+
+                @if(request('search'))
+                    <a href="{{ url()->current() }}" class="btn btn-ghost">
+                        Clear
+                    </a>
+                @endif
+            </div>
+        </form>
 
         <div class="flex flex-wrap justify-center  gap-2">
             @forelse($events as $event)

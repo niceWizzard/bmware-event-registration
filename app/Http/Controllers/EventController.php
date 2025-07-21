@@ -18,11 +18,8 @@ class EventController extends Controller
         $sortOrder = request('order', 'desc');      // default to descending
         $visibility = request('visibility');
         $status = request('status'); // Expecting: Pending, On-Going, Ended
+        $search = request('search'); // <--- New: search by title
 
-
-
-
-        // Allowed fields that map directly to DB or computed values
         $allowedFields = [
             'start_date',
             'registration_start_date',
@@ -33,7 +30,6 @@ class EventController extends Controller
 
         $allowedOrders = ['asc', 'desc'];
 
-        // Validate
         if (!in_array($sortField, $allowedFields)) {
             $sortField = 'start_date';
         }
@@ -44,6 +40,12 @@ class EventController extends Controller
 
         $query = Event::withCount('registrations');
 
+        // 🔍 Search filter by title
+        if ($search) {
+            $query->where('title', 'like', '%' . $search . '%');
+        }
+
+        // 📆 Filter by status
         if (in_array($status, ['Pending', 'On-Going', 'Ended'])) {
             $now = now();
 
@@ -57,29 +59,26 @@ class EventController extends Controller
             }
         }
 
+        // 🧮 Sort logic
         if ($sortField === 'registrations') {
             $query->orderBy('registrations_count', $sortOrder);
         } else {
             $query->orderBy($sortField, $sortOrder);
         }
 
-        // Secondary sort (e.g., updated_at desc)
         $query->orderBy('updated_at', 'desc');
 
+        // 👁️ Visibility filter
         if ($visibility) {
             $query->where('visibility', $visibility);
         } elseif (!Auth::check()) {
-            // For guests: default to only public
             $query->where('visibility', 'public');
         }
-
-
 
         $events = $query->paginate(12)->withQueryString();
 
         return view('events.index', compact('events'));
     }
-
 
 
     public function show(string $shortName)
@@ -102,12 +101,13 @@ class EventController extends Controller
     }
 
     public function makePublic(string $shortName)
-     {
-         $event = Event::whereShortName($shortName)->firstOrFail();
-         $event->visibility = 'public';
-         $event->save();
-         return Redirect::route('events.show', [$shortName]);
-     }
+    {
+        $event = Event::whereShortName($shortName)->firstOrFail();
+        $event->visibility = 'public';
+        $event->save();
+        return Redirect::route('events.show', [$shortName]);
+    }
+
     public function update(string $shortName, StoreOrUpdateEventRequest $request)
     {
         $event = Event::whereShortName($shortName)->firstOrFail();
