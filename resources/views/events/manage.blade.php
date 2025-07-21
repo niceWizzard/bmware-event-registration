@@ -19,6 +19,10 @@
         <div class="flex justify-between max-md:flex-col gap-4">
             <h2 class="text-xl font-medium">Event Information</h2>
             <div class="flex justify-center max-md:flex-col gap-2">
+                <a href="{{route('events.registrations.show', $event->short_name)}}"
+                   class="btn btn-accent btn-outline">
+                    View Registrations
+                </a>
                 <a href="{{route('events.edit', $event->short_name)}}" class="btn btn-secondary btn-outline">
                     <x-fas-edit class="size-4"/>
                     Edit Event

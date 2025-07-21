@@ -26,6 +26,9 @@
 <x-auth-layout>
     <section class="mx-auto container p-8 flex flex-col gap-2">
         <x-breadcrumb :breadcrumbs="$breadcrumbs" class="text-lg font-medium"/>
+        <div class="w-full flex justify-end gap-2">
+            <a href="{{route('events.manage', $event->short_name)}}" class="btn btn-secondary">Manage</a>
+        </div>
         <h3 class="text-lg">Showing {{$registrations->total()}} of {{$event->registrations_count}} registrations</h3>
         <form method="GET" class="mb-4 container w-full max-w-lg mx-auto flex gap-2 justify-center">
             <input type="text"
