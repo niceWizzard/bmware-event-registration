@@ -11,7 +11,17 @@
             [
                 'text' => 'Registrations',
             ],
-        ];
+    ];
+    function sort_link($column) {
+    $currentSort = request('sort');
+    $currentDirection = request('direction', 'asc');
+    $isActive = $currentSort === $column;
+    $nextDirection = ($isActive && $currentDirection === 'asc') ? 'desc' : 'asc';
+
+    $query = array_merge(request()->query(), ['sort' => $column, 'direction' => $nextDirection]);
+    return url()->current() . '?' . http_build_query($query);
+}
+
 @endphp
 <x-auth-layout>
     <section class="mx-auto container p-8 flex flex-col gap-2">
@@ -22,15 +32,88 @@
                 <!-- head -->
                 <thead>
                 <tr>
-                    <th></th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Mobile Number</th>
-                    <th>Company</th>
-                    <th>Registered at</th>
+                    <th>#</th>
+
+                    <th>
+                        <a href="{{ sort_link('first_name') }}" class="hover:underline flex items-center gap-1">
+                            First Name
+                            @if(request('sort') === 'first_name')
+                                @if(request('direction') === 'asc')
+                                    <x-akar-arrow-up class="w-4 h-4"/>
+                                @else
+                                    <x-akar-arrow-down class="w-4 h-4"/>
+                                @endif
+                            @endif
+                        </a>
+                    </th>
+
+                    <th>
+                        <a href="{{ sort_link('last_name') }}" class="hover:underline flex items-center gap-1">
+                            Last Name
+                            @if(request('sort') === 'last_name')
+                                @if(request('direction') === 'asc')
+                                    <x-akar-arrow-up class="w-4 h-4"/>
+                                @else
+                                    <x-akar-arrow-down class="w-4 h-4"/>
+                                @endif
+                            @endif
+                        </a>
+                    </th>
+
+                    <th>
+                        <a href="{{ sort_link('email') }}" class="hover:underline flex items-center gap-1">
+                            Email
+                            @if(request('sort') === 'email')
+                                @if(request('direction') === 'asc')
+                                    <x-akar-arrow-up class="w-4 h-4"/>
+                                @else
+                                    <x-akar-arrow-down class="w-4 h-4"/>
+                                @endif
+                            @endif
+                        </a>
+                    </th>
+
+                    <th>
+                        <a href="{{ sort_link('mobile_number') }}" class="hover:underline flex items-center gap-1">
+                            Mobile Number
+                            @if(request('sort') === 'mobile_number')
+                                @if(request('direction') === 'asc')
+                                    <x-akar-arrow-up class="w-4 h-4"/>
+                                @else
+                                    <x-akar-arrow-down class="w-4 h-4"/>
+                                @endif
+                            @endif
+                        </a>
+                    </th>
+
+                    <th>
+                        <a href="{{ sort_link('company') }}" class="hover:underline flex items-center gap-1">
+                            Company
+                            @if(request('sort') === 'company')
+                                @if(request('direction') === 'asc')
+                                    <x-akar-arrow-up class="w-4 h-4"/>
+                                @else
+                                    <x-akar-arrow-down class="w-4 h-4"/>
+                                @endif
+                            @endif
+                        </a>
+                    </th>
+
+                    <th>
+                        <a href="{{ sort_link('created_at') }}" class="hover:underline flex items-center gap-1">
+                            Registered at
+                            @if(request('sort') === 'created_at')
+                                @if(request('direction') === 'asc')
+                                    <x-akar-arrow-up class="w-4 h-4"/>
+                                @else
+                                    <x-akar-arrow-down class="w-4 h-4"/>
+                                @endif
+                            @endif
+                        </a>
+                    </th>
                 </tr>
                 </thead>
+
                 <tbody>
                 <!-- row 1 -->
                 @forelse($registrations as $registration)

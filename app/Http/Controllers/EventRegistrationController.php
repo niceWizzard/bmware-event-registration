@@ -77,12 +77,28 @@ class EventRegistrationController extends Controller
         return redirect()->to($previousUrl);
     }
 
-    public function show(string $shortName)
+    public function show(string $shortName, Request $request)
     {
-        $event = Event::whereShortName($shortName)->withCount('registrations')->firstOrFail();
-        $registrations = $event->registrations()->paginate(24);
+        $event = Event::whereShortName($shortName)
+            ->withCount('registrations')
+            ->firstOrFail();
+
+        $sort = $request->get('sort', 'created_at');
+        $direction = $request->get('direction', 'desc');
+
+        // Validate sort field to prevent SQL injection
+        $allowedSorts = ['first_name', 'last_name', 'email', 'mobile_number', 'company', 'created_at'];
+        if (!in_array($sort, $allowedSorts)) {
+            $sort = 'created_at';
+        }
+
+        $registrations = $event->registrations()
+            ->orderBy($sort, $direction)
+            ->paginate(24)
+            ->withQueryString(); // Preserve sort & direction on pagination links
 
         return view('events.registrations.show', compact('event', 'registrations'));
     }
+
 
 }
