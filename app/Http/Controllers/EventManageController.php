@@ -17,6 +17,7 @@ class EventManageController extends Controller
             },
             'registrations as total_registrations',
         ])->firstOrFail();
+
         return view('events.manage', compact('event'));
     }
 
@@ -29,7 +30,7 @@ class EventManageController extends Controller
         ];
 
         $jsonContent = json_encode($data, JSON_PRETTY_PRINT);
-        $fileName = 'resource.json';
+        $fileName = 'event-' . $event->short_name . '-data.json';
 
         return \Response::make($jsonContent, 200, [
             'Content-Type' => 'application/json',
