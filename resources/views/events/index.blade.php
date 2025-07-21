@@ -18,13 +18,13 @@
                 </a>
             </div>
         @endauth
-            <div class="flex flex-col md:flex-row md:justify-between gap-4">
-                <!-- Breadcrumb on top or left -->
-                <x-breadcrumb :breadcrumbs="$breadcrumbs" class="text-lg font-medium" />
+        <div class="flex flex-col md:flex-row md:justify-between gap-4">
+            <!-- Breadcrumb on top or left -->
+            <x-breadcrumb :breadcrumbs="$breadcrumbs" class="text-lg font-medium"/>
 
-                <!-- Filters (responsive) -->
-                <div
-                    x-data="{
+            <!-- Filters (responsive) -->
+            <div
+                x-data="{
             sort: '{{ request('sort', '') }}',
             order: '{{ request('order', 'desc') }}',
             visibility: '{{ request('visibility', '') }}',
@@ -41,50 +41,52 @@
                 window.location.href = url.toString();
             }
         }"
-                    class="flex flex-col sm:flex-row flex-wrap gap-2 items-stretch md:items-center justify-end"
+                class="flex flex-col sm:flex-row flex-wrap gap-2 items-stretch md:items-center justify-end"
+            >
+                <!-- Status -->
+                <select x-model="status" @change="updateUrl()" class="select w-full sm:w-auto">
+                    <option value="">All Status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="On-Going">On-Going</option>
+                    <option value="Ended">Ended</option>
+                </select>
+
+                @auth
+                    <!-- Visibility -->
+                    <select x-model="visibility" @change="updateUrl()" class="select w-full sm:w-auto">
+                        <option value="">All Visibility</option>
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                    </select>
+                @endauth
+
+                <!-- Sort -->
+                <select x-model="sort" @change="updateUrl()" class="select w-full sm:w-auto">
+                    <option disabled value="">Sort by</option>
+                    <option value="start_date">Event Start Date</option>
+                    <option value="registration_start_date">Registration Start Date</option>
+                    <option value="registrations">Registration Count</option>
+                </select>
+
+                <!-- Order Toggle -->
+                <button
+                    type="button"
+                    class="btn btn-outline w-full sm:w-auto"
+                    @click="order = (order === 'asc' ? 'desc' : 'asc'); updateUrl()"
                 >
-                    <!-- Status -->
-                    <select x-model="status" @change="updateUrl()" class="select w-full sm:w-auto">
-                        <option value="">All Status</option>
-                        <option value="Pending">Pending</option>
-                        <option value="On-Going">On-Going</option>
-                        <option value="Ended">Ended</option>
-                    </select>
-
-                    @auth
-                        <!-- Visibility -->
-                        <select x-model="visibility" @change="updateUrl()" class="select w-full sm:w-auto">
-                            <option value="">All Visibility</option>
-                            <option value="public">Public</option>
-                            <option value="private">Private</option>
-                        </select>
-                    @endauth
-
-                    <!-- Sort -->
-                    <select x-model="sort" @change="updateUrl()" class="select w-full sm:w-auto">
-                        <option disabled value="">Sort by</option>
-                        <option value="start_date">Event Start Date</option>
-                        <option value="registration_start_date">Registration Start Date</option>
-                        <option value="registrations">Registration Count</option>
-                    </select>
-
-                    <!-- Order Toggle -->
-                    <button
-                        type="button"
-                        class="btn btn-outline w-full sm:w-auto"
-                        @click="order = (order === 'asc' ? 'desc' : 'asc'); updateUrl()"
-                    >
-                        <x-fas-arrow-up x-show="order === 'asc'" class="w-4 h-4" />
-                        <x-fas-arrow-down x-show="order === 'desc'" class="w-4 h-4" />
-                        <span class="ml-2 capitalize" x-text="order"></span>
-                    </button>
-                </div>
+                    <x-fas-arrow-up x-show="order === 'asc'" class="w-4 h-4"/>
+                    <x-fas-arrow-down x-show="order === 'desc'" class="w-4 h-4"/>
+                    <span class="ml-2 capitalize" x-text="order"></span>
+                </button>
             </div>
+        </div>
 
-            <div class="flex flex-wrap justify-center  gap-2">
-            @foreach($events as $event)
+        <div class="flex flex-wrap justify-center  gap-2">
+            @forelse($events as $event)
                 <x-event-card :event="$event"/>
-            @endforeach
+            @empty
+                <p class="text-lg">No events...</p>
+            @endforelse
         </div>
         {{ $events->links('pagination::default') }}
     </section>
