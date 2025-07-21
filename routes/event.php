@@ -20,6 +20,9 @@ Route::prefix('events')
                 Route::get('/{short_name}/download', 'download')->name('.download');
             });
 
+            Route::get('/{short_name}/registrations', [EventRegistrationController::class, 'show'])
+                ->name('.registrations.show');
+
         });
         Route::get('/{short_name}', 'show')->name('.show');
         Route::post('/{short_name}', [EventRegistrationController::class, 'store'])->name('.register');

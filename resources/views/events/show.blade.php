@@ -15,7 +15,8 @@
 <x-header-layout title="Event" link-to="{{route('home')}}">
     @auth
         @if($event->is_private)
-            <div class="flex w-full sticky top-0 bg-secondary text-secondary-content p-1 gap-2 justify-center items-center">
+            <div
+                class="flex w-full sticky top-0 bg-secondary text-secondary-content p-1 gap-2 justify-center items-center">
                 <p class="text-center">This is a private event!</p>
                 <form action="{{route('events.as-public', $event->short_name)}}"
                       method="POST"
@@ -27,6 +28,8 @@
             </div>
         @endif
         <x-slot:headerActions>
+            <a class="hover:underline"
+               href="{{route('events.registrations.show', $event->short_name)}}">Registrations</a>
             <a class="hover:underline" href="{{route('events.edit', $event->short_name)}}">Edit</a>
             <a class="hover:underline" href="{{route('events.manage', $event->short_name)}}">Manage</a>
         </x-slot:headerActions>
@@ -34,7 +37,7 @@
     <section
         class="container mx-auto my-6 p-6 space-y-6  rounded-radius text-on-surface ">
         @auth
-            <x-breadcrumb :breadcrumbs="$breadcrumbs" class="text-lg font-medium" />
+            <x-breadcrumb :breadcrumbs="$breadcrumbs" class="text-lg font-medium"/>
         @endauth
         {{-- Banner --}}
         @if ($event->banner)

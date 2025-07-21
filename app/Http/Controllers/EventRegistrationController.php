@@ -76,4 +76,13 @@ class EventRegistrationController extends Controller
 
         return redirect()->to($previousUrl);
     }
+
+    public function show(string $shortName)
+    {
+        $event = Event::whereShortName($shortName)->withCount('registrations')->firstOrFail();
+        $registrations = $event->registrations()->paginate(24);
+
+        return view('events.registrations.show', compact('event', 'registrations'));
+    }
+
 }
