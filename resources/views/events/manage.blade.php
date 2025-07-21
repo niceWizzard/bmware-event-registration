@@ -5,13 +5,17 @@
                 'text' => 'Events',
             ],
             [
+                'link' => route('events.show', $event->short_name),
+                'text' => \Illuminate\Support\Str::limit($event->title, 24),
+            ],
+            [
                 'text' => 'Manage',
             ],
         ];
 @endphp
 <x-auth-layout title="Manage">
     <section class="p-8 container mx-auto w-full flex flex-col gap-4">
-        <x-breadcrumb :breadcrumbs="$breadcrumbs" class="text-lg font-medium" />
+        <x-breadcrumb :breadcrumbs="$breadcrumbs" class="text-lg font-medium"/>
         <div class="flex justify-between max-md:flex-col gap-4">
             <h2 class="text-xl font-medium">Event Information</h2>
             <div class="flex justify-center max-md:flex-col gap-2">
