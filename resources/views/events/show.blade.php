@@ -16,7 +16,7 @@
     @auth
         @if($event->is_private)
             <div
-                class="flex w-full sticky top-0 bg-secondary text-secondary-content p-1 gap-2 justify-center items-center">
+                class="flex w-full sticky z-10 top-0 bg-secondary text-secondary-content p-1 gap-2 justify-center items-center">
                 <p class="text-center">This is a private event!</p>
                 <form action="{{route('events.as-public', $event->short_name)}}"
                       method="POST"

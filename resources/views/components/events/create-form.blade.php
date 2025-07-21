@@ -177,7 +177,7 @@
         {!! old('body', $event?->body) !!}
     </x-quill-editor>
 
-    <div class="flex max-sm:flex-col gap-2 justify-end sticky bottom-2">
+    <div class="flex max-sm:flex-col gap-2 justify-end sticky bottom-2 z-10">
         <a href="{{route('events.index')}}" class="btn btn-secondary max-sm:w-full w-fit ">
             Back
         </a>
