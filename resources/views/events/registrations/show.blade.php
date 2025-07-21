@@ -26,7 +26,22 @@
 <x-auth-layout>
     <section class="mx-auto container p-8 flex flex-col gap-2">
         <x-breadcrumb :breadcrumbs="$breadcrumbs" class="text-lg font-medium"/>
-        <h3 class="text-lg">Showing {{$event->registrations_count}} registrations</h3>
+        <h3 class="text-lg">Showing {{$registrations->total()}} of {{$event->registrations_count}} registrations</h3>
+        <form method="GET" class="mb-4 container w-full max-w-lg mx-auto flex gap-2 justify-center">
+            <input type="text"
+                   name="search"
+                   value="{{ request('search') }}"
+                   placeholder="Search by name, email, number, or company"
+                   class="input input-bordered w-full max-w-xs"/>
+
+            <button type="submit" class="btn btn-primary">
+                Search
+            </button>
+            <a href="{{ url()->current() }}" class="btn btn-ghost">
+                Clear
+            </a>
+        </form>
+
         <div class="overflow-x-auto">
             <table class="table table-zebra">
                 <!-- head -->

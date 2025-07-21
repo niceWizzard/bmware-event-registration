@@ -18,7 +18,7 @@ class EventRegistrationController extends Controller
         $event = Event::whereShortName($shortName)
             ->where('visibility', 'public')
             ->firstOrFail();
-        if (!$event->can_register) {
+        if (! $event->can_register) {
             return Redirect::back()->with('error', 'Event registration already ended!');
         }
         $data = $request->validate([
@@ -37,7 +37,7 @@ class EventRegistrationController extends Controller
             'event_id' => $event->id,
         ]);
         Cookie::queue(
-            Cookie::make('event_' . $event->id, $registration->token, 60 * 24 * 7)
+            Cookie::make('event_'.$event->id, $registration->token, 60 * 24 * 7)
         );
 
         return Redirect::route('events.show-qr', [$event->short_name, $registration->token]);
@@ -58,19 +58,19 @@ class EventRegistrationController extends Controller
     public function clear(string $shortName)
     {
         $event = Event::whereShortName($shortName)->firstOrFail();
-        $registrationCookie = Cookie::get('event_' . $event->id);
+        $registrationCookie = Cookie::get('event_'.$event->id);
         if (is_null($registrationCookie)) {
             return back()->with([
                 'message' => 'Registration cookie not found.',
             ]);
         }
         Cookie::queue(
-            Cookie::forget('event_' . $event->id)
+            Cookie::forget('event_'.$event->id)
         );
 
         $previousUrl = url()->previous();
 
-        if (!str_contains($previousUrl, '#register')) {
+        if (! str_contains($previousUrl, '#register')) {
             $previousUrl .= '#register';
         }
 
@@ -83,22 +83,32 @@ class EventRegistrationController extends Controller
             ->withCount('registrations')
             ->firstOrFail();
 
+        $search = $request->input('search');
         $sort = $request->get('sort', 'created_at');
         $direction = $request->get('direction', 'desc');
 
-        // Validate sort field to prevent SQL injection
         $allowedSorts = ['first_name', 'last_name', 'email', 'mobile_number', 'company', 'created_at'];
-        if (!in_array($sort, $allowedSorts)) {
+        if (! in_array($sort, $allowedSorts, true)) {
             $sort = 'created_at';
         }
 
-        $registrations = $event->registrations()
+        $registrationsQuery = $event->registrations();
+
+        if ($search) {
+            $registrationsQuery->where(function ($query) use ($search) {
+                $query->where('first_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('company', 'like', "%{$search}%")
+                    ->orWhere('mobile_number', 'like', "%{$search}%");
+            });
+        }
+
+        $registrations = $registrationsQuery
             ->orderBy($sort, $direction)
             ->paginate(24)
-            ->withQueryString(); // Preserve sort & direction on pagination links
+            ->withQueryString();
 
         return view('events.registrations.show', compact('event', 'registrations'));
     }
-
-
 }
