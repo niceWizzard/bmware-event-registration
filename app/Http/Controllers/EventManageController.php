@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use App\Models\EventRegistration;
 
 class EventManageController extends Controller
 {
@@ -27,15 +26,6 @@ class EventManageController extends Controller
 
         $data = [
             'event' => $event->toArray(),
-            'registrations' => $event->registrations->map(fn(EventRegistration $registration) => [
-                'first_name' => $registration->first_name,
-                'last_name' => $registration->last_name,
-                'email' => $registration->email,
-                'mobile_number' => $registration->mobile_number,
-                'gender' => $registration->gender,
-                'company' => $registration->company,
-                'short_name' => $event->short_name,
-            ])->toArray(),
         ];
 
         $jsonContent = json_encode($data, JSON_PRETTY_PRINT);
