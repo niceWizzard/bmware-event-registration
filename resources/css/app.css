@@ -23,24 +23,17 @@ html {
 }
 
 .body > h1 {
-    @apply text-4xl;
-}
-
-.body > h2 {
-    @apply text-3xl;
-}
-
-.body > h3 {
     @apply text-2xl;
 }
 
-.body > h4 {
+.body > h2 {
     @apply text-xl;
 }
 
-.body > h5 {
+.body > h3 {
     @apply text-lg;
 }
+
 
 .body > p > a {
     @apply underline text-info;

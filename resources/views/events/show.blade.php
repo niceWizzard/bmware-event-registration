@@ -49,7 +49,7 @@
         <a href="#register" class="underline">Register now</a>
         {{-- Title + Meta --}}
         <div>
-            <h1 class="text-2xl font-semibold text-on-surface-strong">{{ $event->title }}</h1>
+            <h1 class="text-3xl font-semibold text-on-surface-strong">{{ $event->title }}</h1>
             <p class="text-sm text-[var(--color-on-surface)]">
                 Created:<span data-time="true"> {{ $event->created_at->toString()}}</span>
             </p>
