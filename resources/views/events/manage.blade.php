@@ -1,17 +1,12 @@
 @php
-    $breadcrumbs = [
-            [
-                'link' => route('events.index'),
-                'text' => 'Events',
-            ],
-            [
-                'link' => route('events.show', $event->short_name),
-                'text' => \Illuminate\Support\Str::limit($event->title, 24),
-            ],
+    use App\View\Components\Breadcrumb;
+    $breadcrumbs = Breadcrumb::createEvent($event,
+        [
             [
                 'text' => 'Manage',
             ],
-        ];
+        ]
+    );
 @endphp
 <x-auth-layout title="Manage">
     <section class="p-8 container mx-auto w-full flex flex-col gap-4">

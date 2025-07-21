@@ -1,14 +1,11 @@
 @php
-    $breadcrumbs = [
-        [
-            'link' => route('admin.index'),
-            'text' => 'Admins',
-        ],
-    ];
+    use App\View\Components\Breadcrumb;
+
+    $breadcrumbs = Breadcrumb::createAdminIndex([]);
 @endphp
 <x-auth-layout title="User List">
     <div class="  mx-auto container p-8 flex flex-col">
-        <x-breadcrumb :breadcrumbs="$breadcrumbs" class="text-lg font-medium" />
+        <x-breadcrumb :breadcrumbs="$breadcrumbs" class="text-lg font-medium"/>
         @if(auth()->user()->role === 1)
             <div class="flex justify-end gap-2">
                 <a href="{{route('admin.create')}}" class="btn btn-primary">Create Admin</a>

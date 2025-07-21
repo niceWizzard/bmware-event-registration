@@ -1,17 +1,13 @@
 @php
-    $breadcrumbs = [
+    use App\View\Components\Breadcrumb;
+
+    $breadcrumbs = Breadcrumb::createEvent($event,
             [
-                'link' => route('events.index'),
-                'text' => 'Events',
-            ],
-            [
-                'link' => route('events.show', $event->short_name),
-                'text' => \Illuminate\Support\Str::limit($event->title, 24),
-            ],
-            [
-                'text' => 'Edit',
-            ],
-        ];
+                [
+                    'text' => 'Edit',
+                ],
+            ]
+        );
 @endphp
 
 <x-auth-layout title="Edit">

@@ -1,26 +1,22 @@
 @php
-    $breadcrumbs = [
-            [
-                'link' => route('events.index'),
-                'text' => 'Events',
-            ],
-            [
-                'link' => route('events.show', $event->short_name),
-                'text' => \Illuminate\Support\Str::limit($event->title, 24),
-            ],
-            [
-                'text' => 'Registrations',
-            ],
-    ];
-    function sort_link($column) {
-    $currentSort = request('sort');
-    $currentDirection = request('direction', 'asc');
-    $isActive = $currentSort === $column;
-    $nextDirection = ($isActive && $currentDirection === 'asc') ? 'desc' : 'asc';
+    use App\View\Components\Breadcrumb;
 
-    $query = array_merge(request()->query(), ['sort' => $column, 'direction' => $nextDirection]);
-    return url()->current() . '?' . http_build_query($query);
-}
+    $breadcrumbs = Breadcrumb::createEvent($event,
+            [
+                [
+                    'text' => 'Registrations',
+                ],
+            ]
+        );
+    function sort_link($column) {
+        $currentSort = request('sort');
+        $currentDirection = request('direction', 'asc');
+        $isActive = $currentSort === $column;
+        $nextDirection = ($isActive && $currentDirection === 'asc') ? 'desc' : 'asc';
+
+        $query = array_merge(request()->query(), ['sort' => $column, 'direction' => $nextDirection]);
+        return url()->current() . '?' . http_build_query($query);
+    }
 
 @endphp
 <x-auth-layout>
