@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class Event extends Model
 {
@@ -42,6 +43,23 @@ class Event extends Model
         'end_date' => 'datetime',
     ];
 
+    protected static function booted(): void
+    {
+        static::deleting(static function (Event $event) {
+            $files = [
+                $event->banner,
+                $event->venue_picture,
+                $event->partner_picture,
+            ];
+
+            foreach ($files as $file) {
+                if ($file && Storage::disk('public')->exists($file)) {
+                    Storage::disk('public')->delete($file);
+                }
+            }
+        });
+    }
+
     public function registrations(): HasMany
     {
         return $this->hasMany(EventRegistration::class, 'event_id');
@@ -68,22 +86,25 @@ class Event extends Model
             return $eventStatus;
         });
     }
-    public function isPublic(): Attribute {
-        return Attribute::get(function (): bool {
-            return $this->visibility === 'public';
-        });
-    }
-
-    public function isPrivate() : Attribute {
-        return Attribute::get(function (): bool {
-            return $this->visibility === 'private';
-        });
-    }
 
     public function isOngoing(): bool
     {
         $now = now();
         return $this->start_date->lte($now) &&
             $this->end_date->gte($now);
+    }
+
+    public function isPublic(): Attribute
+    {
+        return Attribute::get(function (): bool {
+            return $this->visibility === 'public';
+        });
+    }
+
+    public function isPrivate(): Attribute
+    {
+        return Attribute::get(function (): bool {
+            return $this->visibility === 'private';
+        });
     }
 }
