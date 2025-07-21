@@ -12,6 +12,7 @@
         const html = window.quill.root.innerHTML;
         input.value = html === '<p><br></p>' ? '' : html;
     }
+
     function setVisibilityValue(value) {
         const input = document.querySelector('input[name="visibility"]');
         input.value = value ? 'public' : 'private';
@@ -33,15 +34,15 @@
     @if(strtolower($method) !== 'post')
         @method($method)
     @endif
-    <input name="visibility" type="hidden" />
+    <input name="visibility" type="hidden"/>
     <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-64 border p-4"
     >
         <legend class="fieldset-legend">Event Visibility</legend>
         <label class="label">
-            <input type="checkbox" name="isPublic" checked="checked" class="toggle" x-model="isPublic" />
+            <input type="checkbox" name="isPublic" checked="checked" class="toggle" x-model="isPublic"/>
             Event <span x-text="isPublic ? 'Public' : 'Private'"></span>
         </label>
-        <p class="text-sm" >
+        <p class="text-sm">
             <span x-show="!isPublic">
                 Private events can only be seen by admins.
             </span>
@@ -176,7 +177,7 @@
         {!! old('body', $event?->body) !!}
     </x-quill-editor>
 
-    <div class="flex max-sm:flex-col gap-2 justify-end">
+    <div class="flex max-sm:flex-col gap-2 justify-end sticky bottom-2">
         <a href="{{route('events.index')}}" class="btn btn-secondary max-sm:w-full w-fit ">
             Back
         </a>
