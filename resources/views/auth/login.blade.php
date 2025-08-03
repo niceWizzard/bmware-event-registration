@@ -34,4 +34,5 @@
             x-text="loading ? 'Logging in…' : 'Login'"
         ></button>
     </form>
+    <a href="{{route('password.request')}}" class="btn btn-link">Forgot Password?</a>
 </x-card-layout>

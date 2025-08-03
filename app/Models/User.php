@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
 class User extends Authenticatable
 {
     public const ROLE_SUPERADMIN = 'superadmin';
@@ -64,4 +65,6 @@ class User extends Authenticatable
     {
         return Attribute::get(fn (): bool => $this->role === 1);
     }
+
+
 }
