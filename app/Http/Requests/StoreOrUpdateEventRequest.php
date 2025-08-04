@@ -30,7 +30,7 @@ class StoreOrUpdateEventRequest extends FormRequest
             'visibility' => ['required', Rule::in(['public', 'private'])],
             'short_name' => [
                 'required', 'string', 'max:72',
-                'regex:/^[A-Za-z0-9\s!@#()]+$/',
+                'regex:/^[A-Za-z0-9_-]+$/',
                 Rule::unique('events', 'short_name')->ignore($event?->id),
             ],
             'partner' => ['required', 'string', 'max:255', self::REGEX_SHORT_STRING],
