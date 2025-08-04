@@ -16,9 +16,8 @@
             </span>
 
         </div>
-        <h3 class="card-title inline-flex items-start max-md:flex-col">
-
-            {{Str::limit($event->title, 64)}}
+        <h3 class="card-title inline-flex items-start max-md:flex-col hover:underline">
+            <a href="{{ route('events.show', $event->short_name) }}">{{Str::limit($event->title, 64)}}</a>
         </h3>
         <p class="text-sm font-light" >
             Created at:
