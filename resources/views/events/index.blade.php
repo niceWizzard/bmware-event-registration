@@ -80,8 +80,8 @@
                 </button>
             </div>
         </div>
-        <form method="GET" class="mb-4">
-            <div class="flex gap-2">
+        <form method="GET" class="mb-4 w-full">
+            <div class="flex gap-2 justify-center">
                 <input
                     type="text"
                     name="search"
