@@ -59,7 +59,7 @@
             <div class="max-w-3xl mx-auto text-center">
                 <h3 class="text-xl font-bold text-primary-700 mb-4">Why Event Registration?</h3>
                 <p class="text-gray-600 leading-relaxed">
-                    Eventify makes it easy for you to find and register for events that matter to you. Whether you're
+                    Event Registration makes it easy for you to find and register for events that matter to you. Whether you're
                     looking to learn, connect, or showcase, our platform brings everything under one roof.
                 </p>
             </div>
